@@ -1,13 +1,212 @@
 [
   {
     "id": "001",
-    "title": "Sample Prompt",
+    "title": "Create Your Memoji",
     "image": "images/001.jpg",
-    "model": "Midjourney",
-    "tags": ["surreal"],
-    "source": "",
+    "model": "GPT-4o / Image Gen",
+    "tags": ["3d", "memoji", "avatar", "stylized"],
+    "source": "https://x.com/egeberkina/status/2020166891567014204",
+    "author": "Ege",
     "prompt": {
-      "description": "A sample prompt placeholder"
+      "task": "floating_mini_memoji_face",
+      "input": {
+        "source_image": "USER_UPLOADED_IMAGE",
+        "preserve_core_identity": true,
+        "auto_detect_face_or_front_surface": true
+      },
+      "output": {
+        "type": "face_only_character_render",
+        "aspect_ratio": "1:1",
+        "resolution": "ultra_high_resolution",
+        "background": "pure_white"
+      },
+      "composition": {
+        "subject_scale": "very_small",
+        "subject_coverage_percentage": "20-30%",
+        "placement": "perfectly_centered",
+        "floating_effect": true,
+        "no_grounding_elements": true
+      },
+      "cropping": {
+        "mode": "face_only",
+        "include_body": false,
+        "include_neck": false,
+        "include_shoulders": false
+      },
+      "style": {
+        "overall_aesthetic": "memoji_like_3d_minimal",
+        "design_language": "soft_rounded_clean",
+        "realism_level": "stylized_not_photorealistic",
+        "inspiration": ["apple_memoji", "ios_sticker_style"]
+      },
+      "form_translation": {
+        "shape_simplification": "high",
+        "edge_rounding": "very_high",
+        "detail_reduction": "strong_but_identity_preserved"
+      },
+      "surface_material": {
+        "material": "soft_matte_plastic",
+        "texture": "uniform",
+        "specularity": "very_low"
+      },
+      "feature_handling": {
+        "eyes_if_present": {
+          "style": "rounded_friendly",
+          "size": "slightly_large"
+        },
+        "expression": "neutral_or_soft"
+      },
+      "lighting": {
+        "setup": "flat_ui_light",
+        "contrast": "minimal",
+        "shadows": "none"
+      },
+      "camera": {
+        "angle": "straight_on",
+        "distance": "pulled_back",
+        "distortion": "none"
+      },
+      "constraints": {
+        "background_must_be_white": true,
+        "head_must_float": true,
+        "no_body_parts_visible": true,
+        "no_drop_shadows": true,
+        "no_photorealism": true
+      }
+    }
+  },
+  {
+    "id": "002",
+    "title": "Wildlife Made of Keycaps",
+    "image": "images/002.jpg",
+    "model": "GPT-4o / Image Gen",
+    "tags": ["keycaps", "silhouette", "photorealistic", "flat-lay"],
+    "source": "https://x.com/egeberkina/status/2024457633608970634",
+    "author": "Ege",
+    "prompt": {
+      "task": "object_made_from_keycaps",
+      "input": {
+        "subject": "Crocodile"
+      },
+      "style": {
+        "aesthetic": "mechanical keyboard keycap mosaic silhouette on white",
+        "render_type": "photorealistic top-down composition",
+        "keycaps": {
+          "type": "real mechanical keyboard keycaps",
+          "material": "matte PBT plastic",
+          "profile": "OEM or Cherry profile",
+          "layout": "tight uniform grid",
+          "all_caps_have_legends": true,
+          "legends": {
+            "include": "letters, numbers, punctuation, function keys, arrows, symbols",
+            "print_style": "crisp double-shot or dye-sublimated",
+            "no_blank_keycaps": true,
+            "randomized_distribution": "natural realistic variation"
+          }
+        },
+        "composition": {
+          "background": "pure seamless white",
+          "shape_definition": "keycaps precisely arranged to form a clean side-profile silhouette of the subject",
+          "negative_space": "empty white outside the silhouette",
+          "aspect_ratio": "16:9",
+          "view": "perfect 90-degree top-down flat lay",
+          "centered": true
+        },
+        "lighting": {
+          "type": "soft diffused studio lighting",
+          "shadow_style": "very soft contact shadows under each keycap",
+          "highlights": "subtle edge highlights on plastic texture",
+          "no_harsh_shadows": true
+        },
+        "depth": {
+          "flat_surface": true,
+          "minimal_perspective_distortion": true
+        }
+      },
+      "quality": {
+        "resolution": "8K",
+        "ultra_sharp_details": true,
+        "realistic_material_texture": true,
+        "no_noise": true
+      }
+    }
+  },
+  {
+    "id": "003",
+    "title": "Just a Different Universe",
+    "image": "images/003.jpg",
+    "model": "GPT-4o / Image Gen",
+    "tags": ["3d", "avatar", "portrait", "pixar", "stylized"],
+    "source": "https://x.com/egeberkina/status/2019761819821260975",
+    "author": "Ege",
+    "prompt": {
+      "task": "stylized_3d_avatar_portrait",
+      "input": {
+        "reference_image": "USER_UPLOADED_IMAGE",
+        "style_match_strength": "high",
+        "preserve_identity": false
+      },
+      "output": {
+        "type": "single_image",
+        "aspect_ratio": "1:1",
+        "resolution": "ultra_high_resolution",
+        "render_quality": "cinema_grade_3d",
+        "ai_artifacts": "none"
+      },
+      "style": {
+        "character_type": "minimal_cartoon_3d_avatar",
+        "inspiration": ["toy_figure_render", "pixar_like_but_simplified", "friendly_brand_avatar"],
+        "proportions": {
+          "head": "slightly_oversized",
+          "facial_features": "simplified_and_soft",
+          "neck": "short_and_cylindrical"
+        }
+      },
+      "character_design": {
+        "skin": {
+          "material": "smooth_semi_gloss_plastic",
+          "subsurface_scattering": "soft",
+          "imperfections": "none"
+        },
+        "face": {
+          "eyes": "small_black_oval_minimal",
+          "eyebrows": "thin_curved_minimal",
+          "nose": "rounded_button_nose",
+          "mouth": "subtle_smile_embedded_in_beard"
+        },
+        "hair": {
+          "style": "stylized_solid_shapes",
+          "material": "glossy_plastic",
+          "edges": "rounded_and_soft"
+        },
+        "beard": {
+          "style": "clean_stylized_beard_block",
+          "material": "glossy_plastic",
+          "integration": "merged_with_face_geometry"
+        }
+      },
+      "lighting": {
+        "setup": "studio_softbox",
+        "key_light": "soft_front",
+        "fill_light": "gentle",
+        "rim_light": "very_subtle",
+        "shadow_style": "soft_and_diffused"
+      },
+      "camera": {
+        "framing": "centered_head_and_shoulders",
+        "angle": "straight_on",
+        "lens": "medium_focal_length",
+        "distortion": "none"
+      },
+      "background": {
+        "color": "solid_bold_red",
+        "gradient": "none",
+        "texture": "flat_clean"
+      },
+      "mood": {
+        "emotion": "friendly_calm",
+        "vibe": "modern_playful_premium"
+      }
     }
   }
 ]
