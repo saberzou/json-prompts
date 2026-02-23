@@ -445,5 +445,48 @@
         ]
       }
     }
+  },
+  {
+    "id": "008",
+    "title": "Inflated 3D Stitched Style",
+    "image": "images/008.jpg",
+    "model": "GPT-4o / Image Gen",
+    "tags": ["3d", "inflated", "stitched", "vinyl", "toy", "pastel"],
+    "source": "https://x.com/egeberkina/status/1980970517084639264",
+    "author": "Ege",
+    "prompt": {
+      "style": {
+        "visual_language": "ultra-inflated 3D stitched aesthetic",
+        "materials": "soft vinyl and synthetic leather blend with realistic surface tension",
+        "geometry": "highly inflated, rounded volumetric forms with pronounced stitching along edges",
+        "finish": "semi-gloss surface with light-reflective highlights emphasizing the puffed contour",
+        "lighting": "balanced studio lighting with subtle directional emphasis from top-left to enhance volume and seam depth",
+        "shadow": "gentle yet defined diffuse shadows directly beneath objects for grounded realism",
+        "composition": "clean centered or grid layout on seamless matte white background",
+        "color_palette": {
+          "primary_tones": "pastel and candy-like colors — mint green, soft orange, butter yellow, warm gray",
+          "accent_tones": "slightly darker stitching seams for depth contrast",
+          "background": "neutral white, softly illuminated"
+        },
+        "mood": "playful, tactile, polished, premium toy-like",
+        "camera": {
+          "view": "orthographic or top-down camera angle",
+          "focus": "sharp across entire frame",
+          "depth_of_field": "none"
+        }
+      },
+      "object": {
+        "type": "any symbol or shape",
+        "form_behavior": "pillowed, inflated form with stitched rim contour wrapping around edges",
+        "surface_detail": "visible seam ridges and fabric tension around corners",
+        "material_behavior": "slightly reflective soft vinyl reacting realistically to light"
+      },
+      "render": {
+        "engine": "physically based rendering (PBR)",
+        "lighting_engine": "soft global illumination with high dynamic range reflections",
+        "shadows": "ambient occlusion for subtle curvature shading and soft shadow underlay",
+        "quality": "8K ultra-detailed render, smooth transitions and realistic stitching depth"
+      }
+    }
   }
 ]
