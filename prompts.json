@@ -4,7 +4,12 @@
     "title": "Create Your Memoji",
     "image": "images/001.jpg",
     "model": "GPT-4o / Image Gen",
-    "tags": ["3d", "memoji", "avatar", "stylized"],
+    "tags": [
+      "3d",
+      "memoji",
+      "avatar",
+      "stylized"
+    ],
     "source": "https://x.com/egeberkina/status/2020166891567014204",
     "author": "Ege",
     "prompt": {
@@ -37,7 +42,10 @@
         "overall_aesthetic": "memoji_like_3d_minimal",
         "design_language": "soft_rounded_clean",
         "realism_level": "stylized_not_photorealistic",
-        "inspiration": ["apple_memoji", "ios_sticker_style"]
+        "inspiration": [
+          "apple_memoji",
+          "ios_sticker_style"
+        ]
       },
       "form_translation": {
         "shape_simplification": "high",
@@ -80,7 +88,12 @@
     "title": "Wildlife Made of Keycaps",
     "image": "images/002.jpg",
     "model": "GPT-4o / Image Gen",
-    "tags": ["keycaps", "silhouette", "photorealistic", "flat-lay"],
+    "tags": [
+      "keycaps",
+      "silhouette",
+      "photorealistic",
+      "flat-lay"
+    ],
     "source": "https://x.com/egeberkina/status/2024457633608970634",
     "author": "Ege",
     "prompt": {
@@ -136,7 +149,13 @@
     "title": "Just a Different Universe",
     "image": "images/003.jpg",
     "model": "GPT-4o / Image Gen",
-    "tags": ["3d", "avatar", "portrait", "pixar", "stylized"],
+    "tags": [
+      "3d",
+      "avatar",
+      "portrait",
+      "pixar",
+      "stylized"
+    ],
     "source": "https://x.com/egeberkina/status/2019761819821260975",
     "author": "Ege",
     "prompt": {
@@ -155,7 +174,11 @@
       },
       "style": {
         "character_type": "minimal_cartoon_3d_avatar",
-        "inspiration": ["toy_figure_render", "pixar_like_but_simplified", "friendly_brand_avatar"],
+        "inspiration": [
+          "toy_figure_render",
+          "pixar_like_but_simplified",
+          "friendly_brand_avatar"
+        ],
         "proportions": {
           "head": "slightly_oversized",
           "facial_features": "simplified_and_soft",
@@ -214,7 +237,13 @@
     "title": "Trending Glass 3D Style",
     "image": "images/004.jpg",
     "model": "GPT-4o / Image Gen",
-    "tags": ["3d", "glass", "crystal", "photorealistic", "render"],
+    "tags": [
+      "3d",
+      "glass",
+      "crystal",
+      "photorealistic",
+      "render"
+    ],
     "source": "https://x.com/hewarsaber/status/2023828954528776574",
     "author": "Hewar",
     "prompt": {
@@ -246,7 +275,13 @@
     "title": "Plushie Style Transformation",
     "image": "images/005.jpg",
     "model": "GPT-4o / Image Gen",
-    "tags": ["plushie", "3d", "cute", "stylized", "toy"],
+    "tags": [
+      "plushie",
+      "3d",
+      "cute",
+      "stylized",
+      "toy"
+    ],
     "source": "",
     "author": "",
     "prompt": {
@@ -260,7 +295,10 @@
       },
       "style": {
         "aesthetic": "adorable plush toy",
-        "materials": ["felt", "fleece"],
+        "materials": [
+          "felt",
+          "fleece"
+        ],
         "textures": "soft, cozy, handcrafted",
         "shapes": "simplified, rounded proportions",
         "details": {
@@ -295,7 +333,13 @@
     "title": "Naive Childlike Doodle",
     "image": "images/006.png",
     "model": "GPT-4o / Image Gen",
-    "tags": ["doodle", "sketch", "line-art", "naive", "hand-drawn"],
+    "tags": [
+      "doodle",
+      "sketch",
+      "line-art",
+      "naive",
+      "hand-drawn"
+    ],
     "source": "",
     "author": "",
     "prompt": {
@@ -324,7 +368,10 @@
         "expression": "endearingly_cute_and_adorable"
       },
       "background": {
-        "style": ["plain", "light_paper_texture"]
+        "style": [
+          "plain",
+          "light_paper_texture"
+        ]
       },
       "aesthetic": {
         "overall_feel": [
@@ -342,116 +389,18 @@
     }
   },
   {
-    "id": "007",
-    "title": "Product Design Catalog",
-    "image": "images/007.jpg",
-    "model": "GPT-4o / Image Gen",
-    "tags": ["product-design", "technical-drawing", "editorial", "catalog"],
-    "source": "https://x.com/egeberkina/status/2016960334838567332",
-    "author": "Ege",
-    "prompt": {
-      "reference_images": {
-        "product_image": "UPLOADED_IMAGE",
-        "usage_rule": "Use the uploaded image as the exact visual reference for the product's form, proportions, materials, and overall identity. Do not redesign or reinterpret the product."
-      },
-      "layout": {
-        "canvas": {
-          "orientation": "vertical",
-          "aspect_ratio": "3:4",
-          "background": "warm neutral paper-like surface"
-        },
-        "structure": {
-          "top_section": "lifestyle_hero",
-          "bottom_section": "technical_specification"
-        }
-      },
-      "top_section": {
-        "type": "lifestyle_product_image",
-        "composition": {
-          "placement": "top_center",
-          "scale": "dominant",
-          "margin": "generous whitespace around product"
-        },
-        "environment": {
-          "setting": "minimal architectural interior",
-          "lighting": {
-            "type": "natural sunlight",
-            "direction": "angled side light",
-            "quality": "soft but high-contrast shadows"
-          },
-          "floor": "subtle concrete or stone surface",
-          "background": "textured plaster wall"
-        },
-        "rendering": {
-          "style": "editorial lifestyle photography",
-          "detail": "high realism",
-          "color_grading": "warm, muted, premium"
-        }
-      },
-      "bottom_section": {
-        "type": "technical_specification_panel",
-        "layout": {
-          "grid": "modular",
-          "alignment": "clean, architectural"
-        },
-        "technical_drawings": {
-          "placement": "bottom_left_and_center",
-          "style": "architectural line drawings",
-          "views": ["front view", "side view", "three-quarter cutaway or profile view"],
-          "projection": "orthographic",
-          "line_style": {
-            "color": "muted red or sepia",
-            "weight": "fine technical lines"
-          },
-          "annotations": {
-            "type": "measurement and construction callouts",
-            "language": "neutral technical labels",
-            "density": "minimal, editorial"
-          }
-        },
-        "materials_panel": {
-          "placement": "bottom_right",
-          "content": {
-            "type": "material_swatches",
-            "count": "3-4 depending on product",
-            "format": "square or rectangular samples"
-          },
-          "textures": {
-            "source": "derived from the product materials",
-            "examples": ["fabric", "leather", "metal", "wood", "plastic"]
-          },
-          "labels": {
-            "style": "small editorial captions",
-            "tone": "technical but refined"
-          }
-        }
-      },
-      "typography": {
-        "style": "minimal editorial",
-        "usage": "subtle captions, no large headlines",
-        "color": "soft black or dark brown"
-      },
-      "overall_style": {
-        "mood": "design catalog / product design journal",
-        "aesthetic": "architectural, premium, calm",
-        "avoid": ["clutter", "bold colors", "heavy branding", "overly decorative graphics"]
-      },
-      "constraints": {
-        "do_not": [
-          "change product design",
-          "invent new materials",
-          "add logos unless present in reference",
-          "use perspective distortion in drawings"
-        ]
-      }
-    }
-  },
-  {
     "id": "008",
     "title": "Inflated 3D Stitched Style",
     "image": "images/008.jpg",
     "model": "GPT-4o / Image Gen",
-    "tags": ["3d", "inflated", "stitched", "vinyl", "toy", "pastel"],
+    "tags": [
+      "3d",
+      "inflated",
+      "stitched",
+      "vinyl",
+      "toy",
+      "pastel"
+    ],
     "source": "https://x.com/egeberkina/status/1980970517084639264",
     "author": "Ege",
     "prompt": {
@@ -494,7 +443,13 @@
     "title": "3D Avatar Edition",
     "image": "images/009.jpg",
     "model": "GPT-4o / Image Gen",
-    "tags": ["3d", "avatar", "character", "stylized", "minimal"],
+    "tags": [
+      "3d",
+      "avatar",
+      "character",
+      "stylized",
+      "minimal"
+    ],
     "source": "https://x.com/egeberkina/status/2019145333318856992",
     "author": "Ege",
     "prompt": {
@@ -508,7 +463,11 @@
       "style_reference": {
         "render_style": "stylized_3d_character",
         "aesthetic": "soft_minimal_cartoon_3d",
-        "inspiration": ["pixar_like_but_more_minimal", "toy_figure_render", "clean_product_character_design"]
+        "inspiration": [
+          "pixar_like_but_more_minimal",
+          "toy_figure_render",
+          "clean_product_character_design"
+        ]
       },
       "character_design": {
         "skin": {
@@ -542,7 +501,10 @@
       },
       "background": {
         "type": "solid_color",
-        "color_palette": ["muted_green", "pastel_tone"],
+        "color_palette": [
+          "muted_green",
+          "pastel_tone"
+        ],
         "gradient": "none"
       },
       "camera": {
@@ -561,6 +523,47 @@
         "consistency": "high",
         "style_strength": "strong",
         "photorealism": false
+      }
+    }
+  },
+  {
+    "id": "007",
+    "title": "Typographic Art Portrait",
+    "image": "images/007.png",
+    "model": "GPT-4o / Image Gen",
+    "tags": [
+      "typography",
+      "portrait",
+      "text-art",
+      "calligraphy",
+      "black-and-white"
+    ],
+    "source": "",
+    "author": "",
+    "prompt": {
+      "task": "typographic_art_portrait",
+      "input": {
+        "source_image": "USER_UPLOADED_IMAGE",
+        "reference_subject": "person"
+      },
+      "composition": {
+        "portrait_orientation": "left_facing_side_profile",
+        "full_subject_visibility": true,
+        "include": [
+          "face",
+          "hair",
+          "facial_features"
+        ]
+      },
+      "style": {
+        "type": "typographic_portrait",
+        "text_style": "white_calligraphic_text",
+        "text_content": "your text here",
+        "text_repetition": true,
+        "text_exclusivity": "entire image formed only from repeated text"
+      },
+      "color": {
+        "text_color": "white"
       }
     }
   }
