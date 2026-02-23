@@ -566,5 +566,53 @@
         "text_color": "white"
       }
     }
+  },
+  {
+    "id": "010",
+    "title": "Frosted Bubble 3D Icons",
+    "image": "images/010.jpg",
+    "model": "GPT-4o / Image Gen",
+    "tags": ["3d", "icon", "frosted", "translucent", "bubble"],
+    "source": "https://x.com/anima_labs/status/1953762729916772449",
+    "author": "Anima",
+    "prompt": {
+      "style_name": "Frosted Bubble 3D Icons",
+      "render_mode": "3d_semi_transparent_detailed",
+      "icon_subject": "{{icon_subject}}",
+      "object_analysis": {
+        "preserve_silhouette": true,
+        "geometry_sensitive_mapping": true,
+        "detail_retention": "smooth rounded edges, subtle internal reflections"
+      },
+      "material_properties": {
+        "base_material": ["frosted translucent plastic", "semi-transparent matte acrylic"],
+        "internal_elements": "floating colorful spheres, visible through the outer shell",
+        "surface_finish": "frosted, diffused matte texture with light translucency",
+        "texture_behavior": "no external color tint, transparency reveals inner objects",
+        "branding_elements": "none"
+      },
+      "color_palette": {
+        "primary": ["#FFFFFF", "#F5F5F5"],
+        "accents": ["#FF69B4", "#FFA500", "#6A5ACD", "#00CED1", "#FFD700"],
+        "contrast": "very high"
+      },
+      "lighting": {
+        "type": "soft ambient + rim lighting",
+        "intensity": "high",
+        "shadows": "soft glow under the object",
+        "highlights": "faint edge glow and top soft reflection"
+      },
+      "rendering": {
+        "style": "modern 3D icon with internal color elements",
+        "background": "pure black",
+        "camera_angle": "isometric 3/4 view",
+        "depth_of_field": "none, all details in focus"
+      },
+      "style_notes": [
+        "black background increases bubble color visibility",
+        "frosted transparency should glow subtly against black",
+        "perfect for high-contrast, collectible-style icons"
+      ]
+    }
   }
 ]
