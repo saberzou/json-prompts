@@ -646,18 +646,5 @@
       "pixel"
     ],
     "prompt": "{\n  \"style\": \"3D voxel icon, isometric pixel sculpture\",\n  \"subject\": \"{SUBJECT}\",\n  \"geometry\": {\n    \"construction\": \"built entirely from uniform cubic voxels\",\n    \"grid_visibility\": \"clearly visible cube grid\",\n    \"edge_style\": \"stepped, blocky, pixelated edges\",\n    \"proportions\": \"simple, icon-like, minimal detail\"\n  },\n  \"rendering\": {\n    \"lighting\": \"soft studio lighting with gentle shadows\",\n    \"material\": \"smooth matte or subtle semi-gloss plastic\",\n    \"shading\": \"clean global illumination, soft gradients\",\n    \"depth\": \"strong dimensional depth and volume\"\n  },\n  \"camera\": {\n    \"angle\": \"3/4 isometric view\",\n    \"rotation\": \"slightly tilted for dynamic presentation\",\n    \"framing\": \"centered composition\"\n  },\n  \"color\": {\n    \"palette\": \"{COLOR_STYLE}\",\n    \"saturation\": \"vibrant but clean\",\n    \"contrast\": \"crisp separation between surfaces\"\n  },\n  \"background\": {\n    \"type\": \"transparent PNG\",\n    \"shadow\": \"soft floating shadow under object\",\n    \"environment\": \"no scene, no floor, no horizon\"\n  },\n  \"aesthetic\": [\n    \"minimalist\",\n    \"modern icon design\",\n    \"toy-like\",\n    \"clean\",\n    \"precise\",\n    \"high resolution\",\n    \"product render quality\"\n  ],\n  \"quality\": {\n    \"resolution\": \"high detail\",\n    \"edges\": \"sharp and clean\",\n    \"noise\": \"none\",\n    \"style_consistency\": \"strict voxel construction\"\n  }\n}"
-  },
-  {
-    "id": "012",
-    "title": "Calligraphic Text Portrait",
-    "image": "images/typographic-portrait-2.png",
-    "size": "sq",
-    "tags": [
-      "typography",
-      "portrait",
-      "calligraphy",
-      "text art"
-    ],
-    "prompt": "{\n  \"task\": \"typographic_art_portrait\",\n  \"input\": {\n    \"source_image\": \"USER_UPLOADED_IMAGE\",\n    \"reference_subject\": \"person\"\n  },\n  \"composition\": {\n    \"portrait_orientation\": \"left_facing_side_profile\",\n    \"full_subject_visibility\": true,\n    \"include\": [\n      \"face\",\n      \"hair\",\n      \"facial_features\"\n    ]\n  },\n  \"style\": {\n    \"type\": \"typographic_portrait\",\n    \"text_style\": \"white_calligraphic_text\",\n    \"text_content\": \"your text here\",\n    \"text_repetition\": true,\n    \"text_exclusivity\": \"entire image formed only from repeated text\"\n  },\n  \"color\": {\n    \"text_color\": \"white\"\n  }\n}"
   }
 ]
