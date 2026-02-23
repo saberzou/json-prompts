@@ -240,5 +240,105 @@
       "medium": "Ultra-realistic 3D render",
       "size": "1080px by 1080px"
     }
+  },
+  {
+    "id": "005",
+    "title": "Plushie Style Transformation",
+    "image": "images/005.jpg",
+    "model": "GPT-4o / Image Gen",
+    "tags": ["plushie", "3d", "cute", "stylized", "toy"],
+    "source": "",
+    "author": "",
+    "prompt": {
+      "task": "plushie_style_transformation",
+      "input": {
+        "type": "image",
+        "subject_handling": {
+          "person_present": "preserve recognizable traits",
+          "animal_or_object_present": "reinterpret as cozy stuffed toy"
+        }
+      },
+      "style": {
+        "aesthetic": "adorable plush toy",
+        "materials": ["felt", "fleece"],
+        "textures": "soft, cozy, handcrafted",
+        "shapes": "simplified, rounded proportions",
+        "details": {
+          "eyes": "embroidered",
+          "mouth": "embroidered",
+          "features": "gentle stitched details",
+          "seams": "subtle visible seams"
+        },
+        "color_palette": "warm pastel or neutral tones",
+        "shading": "smooth and soft"
+      },
+      "proportions": {
+        "head": "slightly oversized",
+        "limbs": "short",
+        "silhouette": "cuddly and rounded"
+      },
+      "expression": {
+        "mood": "friendly",
+        "tone": "cute and wholesome"
+      },
+      "overall_feel": [
+        "charming",
+        "collectible",
+        "cozy",
+        "huggable",
+        "recognizable as original subject"
+      ]
+    }
+  },
+  {
+    "id": "006",
+    "title": "Naive Childlike Doodle",
+    "image": "images/006.png",
+    "model": "GPT-4o / Image Gen",
+    "tags": ["doodle", "sketch", "line-art", "naive", "hand-drawn"],
+    "source": "",
+    "author": "",
+    "prompt": {
+      "style": "naive_childlike_doodle",
+      "linework": {
+        "type": "rough_uneven_black_lines",
+        "quality": "loose_scribbly",
+        "stroke_character": [
+          "wobbly_outlines",
+          "unsteady_strokes",
+          "hand_drawn_without_precision"
+        ],
+        "color": "black_only",
+        "no_crayon_effect": true
+      },
+      "proportions": {
+        "exaggerated": true,
+        "awkward": true,
+        "simple_shapes": true
+      },
+      "details": {
+        "hair_representation": [
+          "frantic_curls",
+          "straight_jagged_lines"
+        ],
+        "expression": "endearingly_cute_and_adorable"
+      },
+      "background": {
+        "style": ["plain", "light_paper_texture"]
+      },
+      "aesthetic": {
+        "overall_feel": [
+          "spontaneous_kids_sketch",
+          "amateur_doodle",
+          "charmingly_imperfect",
+          "unrefined",
+          "playfully_weird"
+        ],
+        "recognizable_subject": true
+      },
+      "rendering_constraints": {
+        "line_art_only": true
+      }
+    }
   }
 ]
