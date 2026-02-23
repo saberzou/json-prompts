@@ -197,6 +197,7 @@ nav > * { pointer-events: auto; }
 .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
 .modal {
+  position: relative;
   width: 90%; max-width: 540px; max-height: 85vh;
   overflow-y: auto; background: #0a0a0a;
   border: 1px solid #1a1a1a; border-radius: 12px;
@@ -243,14 +244,13 @@ nav > * { pointer-events: auto; }
 .modal-source:hover { color: var(--text); }
 
 .modal-close {
-  position: sticky; top: 12px; float: right;
-  margin: 12px 12px 0 0;
+  position: absolute; top: 12px; right: 12px;
   width: 32px; height: 32px; border-radius: 50%; border: none;
-  background: rgba(255,255,255,0.1); color: #fff; cursor: pointer;
+  background: rgba(0,0,0,0.5); color: #fff; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   z-index: 10; font-size: 18px; transition: background 0.2s;
 }
-.modal-close:hover { background: rgba(255,255,255,0.2); }
+.modal-close:hover { background: rgba(0,0,0,0.7); }
 
 /* ========== ABOUT ========== */
 .about-overlay {
