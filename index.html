@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>JSON Prompts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -12,219 +12,176 @@
 :root {
   --bg: #000;
   --surface: #111;
-  --border: #222;
   --text: #e8e8e8;
   --text-dim: #555;
   --accent: #ff6b35;
   --mono: 'JetBrains Mono', monospace;
   --sans: 'DM Sans', sans-serif;
   --display: 'Archivo Black', sans-serif;
+  --cell: 120px;
   --gap: 1px;
+  --gap-color: rgba(255,255,255,0.10);
 }
 
 html, body {
   background: var(--bg);
   font-family: var(--sans);
   color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
+  height: 100%; width: 100%;
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
+  touch-action: none;
+  user-select: none;
 }
 
 /* ========== NAV ========== */
 nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-  pointer-events: none;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px; pointer-events: none;
 }
 nav > * { pointer-events: auto; }
 
 .logo {
-  font-family: var(--display);
-  font-size: 14px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text);
-  text-decoration: none;
-  user-select: none;
+  font-family: var(--display); font-size: 14px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text); text-decoration: none;
 }
 .logo span { color: var(--accent); }
 
 .nav-btn {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  border: 1.5px solid #333;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: var(--text);
-  cursor: pointer;
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1.5px solid #333; background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  color: var(--text); cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: border-color 0.2s;
 }
 .nav-btn:hover { border-color: #666; }
 .nav-btn svg { width: 16px; height: 16px; }
 
-/* ========== FOOTER BAR ========== */
+/* ========== FOOTER ========== */
 .footer-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-  pointer-events: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px; pointer-events: none;
 }
 .footer-bar > * { pointer-events: auto; }
 
 .counter {
-  font-family: var(--mono);
-  font-size: 13px;
+  font-family: var(--mono); font-size: 13px;
   color: var(--text-dim);
-  user-select: none;
 }
 
-.view-toggle {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  border: 1.5px solid #333;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: var(--text);
-  cursor: pointer;
+.pill-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1.5px solid #333; background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  color: var(--text); cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: border-color 0.2s;
 }
-.view-toggle:hover { border-color: #666; }
-.view-toggle svg { width: 18px; height: 18px; }
+.pill-btn:hover { border-color: #666; }
+.pill-btn svg { width: 18px; height: 18px; }
 
-/* ========== GRID VIEW — irregular mosaic ========== */
-#gridView {
-  padding: 0;
-  display: grid;
-  gap: var(--gap);
-  /* 6-column base grid for varied tile sizes */
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: minmax(100px, auto);
-  grid-auto-flow: dense;
-}
-
-.grid-cell {
-  position: relative;
+/* ========== INFINITE GRID ========== */
+#gridViewport {
+  position: fixed; inset: 0;
   overflow: hidden;
-  background: var(--surface);
-  cursor: pointer;
+  cursor: grab;
+  background: var(--gap-color);
+}
+#gridViewport:active { cursor: grabbing; }
+
+#gridCanvas {
+  position: absolute; top: 0; left: 0;
+  display: flex; flex-wrap: wrap;
+  will-change: transform;
 }
 
-/* Tile size classes — assigned in JS based on pattern */
-.grid-cell.sz-1x1 { grid-column: span 2; grid-row: span 2; }
-.grid-cell.sz-2x1 { grid-column: span 4; grid-row: span 2; }
-.grid-cell.sz-1x2 { grid-column: span 2; grid-row: span 4; }
-.grid-cell.sz-2x2 { grid-column: span 3; grid-row: span 3; }
-.grid-cell.sz-wide { grid-column: span 6; grid-row: span 2; }
+/* One tile block — an 8-col grid of 32 items */
+.tile-block {
+  display: grid;
+  grid-template-columns: repeat(8, var(--cell));
+  grid-auto-rows: var(--cell);
+  grid-auto-flow: dense;
+  gap: var(--gap);
+  background: var(--gap-color);
+}
 
-.grid-cell img {
+.tile-block .item {
+  position: relative; overflow: hidden;
+  background: var(--bg); cursor: pointer;
+}
+.tile-block .item img {
   width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s cubic-bezier(0.25, 0, 0.25, 1);
+  object-fit: cover; display: block;
+  transition: transform 0.4s cubic-bezier(0.25,0,0.25,1);
 }
-.grid-cell:hover img { transform: scale(1.04); }
+.tile-block .item:hover img { transform: scale(1.05); }
+
+/* Size variants */
+.item.sq { grid-column: span 1; grid-row: span 1; }
+.item.landscape { grid-column: span 2; grid-row: span 1; }
+.item.portrait { grid-column: span 1; grid-row: span 2; }
 
 /* Hover overlay */
-.grid-cell::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 40%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
+.item::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
 }
-.grid-cell:hover::after { opacity: 1; }
+.item:hover::after { opacity: 1; }
 
-.grid-cell .cell-title {
-  position: absolute;
-  bottom: 12px; left: 14px; right: 14px;
-  font-size: 13px; font-weight: 500;
-  color: #fff;
-  opacity: 0;
-  transform: translateY(6px);
+.item .item-title {
+  position: absolute; bottom: 8px; left: 10px; right: 10px;
+  font-size: 11px; font-weight: 500; color: #fff;
+  opacity: 0; transform: translateY(4px);
   transition: opacity 0.3s, transform 0.3s;
-  z-index: 2;
-  pointer-events: none;
+  z-index: 2; pointer-events: none;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.grid-cell:hover .cell-title {
-  opacity: 1; transform: translateY(0);
-}
+.item:hover .item-title { opacity: 1; transform: translateY(0); }
 
-/* ========== LIST VIEW — stacked carousel ========== */
+/* ========== LIST VIEW ========== */
 #listView {
   display: none;
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   overflow: hidden;
-  perspective: 800px;
-}
-
-.list-track {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.5s cubic-bezier(0.25, 0, 0.25, 1);
-  will-change: transform;
+  background: var(--bg);
 }
 
 .list-item {
   position: absolute;
-  width: 55vw;
-  max-width: 480px;
+  left: 50%; top: 50%;
+  width: 55vw; max-width: 480px;
   aspect-ratio: 1;
-  border-radius: 0;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.5s cubic-bezier(0.25, 0, 0.25, 1),
-              opacity 0.5s cubic-bezier(0.25, 0, 0.25, 1);
-  will-change: transform, opacity;
+  overflow: hidden; cursor: pointer;
   background: var(--surface);
+  transition: transform 0.5s cubic-bezier(0.25,0,0.25,1),
+              opacity 0.5s cubic-bezier(0.25,0,0.25,1);
+  will-change: transform, opacity;
+  transform-origin: center center;
 }
-
 .list-item img {
   width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
+  object-fit: cover; display: block;
 }
 
 .list-item .list-title {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 16px;
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 40px 16px 16px;
   background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-  font-size: 15px; font-weight: 500;
-  color: #fff;
-  opacity: 0;
-  transition: opacity 0.3s;
+  font-size: 15px; font-weight: 500; color: #fff;
+  opacity: 0; transition: opacity 0.3s;
 }
 .list-item.active .list-title { opacity: 1; }
 
 .list-item .list-model {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 0 16px 12px;
-  font-family: var(--mono);
-  font-size: 11px;
+  position: absolute; bottom: 12px; left: 16px;
+  font-family: var(--mono); font-size: 11px;
   color: rgba(255,255,255,0.5);
-  opacity: 0;
-  transition: opacity 0.3s;
+  opacity: 0; transition: opacity 0.3s;
 }
 .list-item.active .list-model { opacity: 1; }
 
@@ -232,74 +189,45 @@ nav > * { pointer-events: auto; }
 .modal-overlay {
   position: fixed; inset: 0; z-index: 200;
   background: rgba(0,0,0,0.88);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
 }
 .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
 .modal {
   width: 90%; max-width: 540px; max-height: 85vh;
-  overflow-y: auto;
-  background: #0a0a0a;
-  border: 1px solid #1a1a1a;
-  border-radius: 12px;
-  transform: translateY(20px) scale(0.97);
-  transition: transform 0.3s;
+  overflow-y: auto; background: #0a0a0a;
+  border: 1px solid #1a1a1a; border-radius: 12px;
+  transform: translateY(20px) scale(0.97); transition: transform 0.3s;
 }
 .modal-overlay.active .modal { transform: translateY(0) scale(1); }
 
-.modal-image {
-  width: 100%; aspect-ratio: 1;
-  object-fit: cover; display: block;
-}
-
+.modal-image { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
 .modal-body { padding: 20px; }
-
-.modal-title {
-  font-size: 18px; font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.modal-model {
-  font-family: var(--mono); font-size: 12px;
-  color: var(--text-dim); margin-bottom: 16px;
-}
-
-.modal-tags {
-  display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;
-}
+.modal-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.modal-model { font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-bottom: 16px; }
+.modal-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
 .tag {
-  font-family: var(--mono); font-size: 11px;
-  color: var(--accent);
-  border: 1px solid rgba(255,107,53,0.25);
-  padding: 3px 8px; border-radius: 4px;
-  user-select: none;
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
+  border: 1px solid rgba(255,107,53,0.25); padding: 3px 8px; border-radius: 4px;
 }
 
 .json-block {
-  position: relative;
-  background: #050505;
-  border: 1px solid #1a1a1a;
-  border-radius: 8px;
-  padding: 16px;
-  overflow-x: auto;
+  position: relative; background: #050505;
+  border: 1px solid #1a1a1a; border-radius: 8px; padding: 16px; overflow-x: auto;
 }
 .json-block pre {
-  font-family: var(--mono); font-size: 12px;
-  line-height: 1.6; color: #aaa;
-  white-space: pre-wrap; word-break: break-word;
+  font-family: var(--mono); font-size: 12px; line-height: 1.6;
+  color: #aaa; white-space: pre-wrap; word-break: break-word;
 }
 
 .copy-btn {
   position: absolute; top: 8px; right: 8px;
   font-family: var(--mono); font-size: 11px;
   background: var(--accent); color: #fff;
-  border: none; border-radius: 4px;
-  padding: 5px 12px; cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  border: none; border-radius: 4px; padding: 5px 12px;
+  cursor: pointer; transition: background 0.2s, transform 0.1s;
 }
 .copy-btn:hover { background: #e55a28; }
 .copy-btn:active { transform: scale(0.95); }
@@ -309,21 +237,17 @@ nav > * { pointer-events: auto; }
   display: inline-block; margin-top: 12px;
   font-family: var(--mono); font-size: 11px;
   color: var(--text-dim); text-decoration: none;
-  border-bottom: 1px solid #222;
-  transition: color 0.2s;
+  border-bottom: 1px solid #222; transition: color 0.2s;
 }
 .modal-source:hover { color: var(--text); }
 
 .modal-close {
   position: sticky; top: 12px; float: right;
   margin: 12px 12px 0 0;
-  width: 32px; height: 32px;
-  border-radius: 50%; border: none;
-  background: rgba(255,255,255,0.1);
-  color: #fff; cursor: pointer;
+  width: 32px; height: 32px; border-radius: 50%; border: none;
+  background: rgba(255,255,255,0.1); color: #fff; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  z-index: 10; font-size: 18px; line-height: 1;
-  transition: background 0.2s;
+  z-index: 10; font-size: 18px; transition: background 0.2s;
 }
 .modal-close:hover { background: rgba(255,255,255,0.2); }
 
@@ -331,56 +255,32 @@ nav > * { pointer-events: auto; }
 .about-overlay {
   position: fixed; inset: 0; z-index: 300;
   background: rgba(0,0,0,0.92);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
 }
 .about-overlay.active { opacity: 1; pointer-events: auto; }
-
-.about-content {
-  max-width: 440px; padding: 40px 24px; text-align: center;
-}
-.about-title {
-  font-family: var(--display); font-size: 28px;
-  letter-spacing: 0.05em; margin-bottom: 8px;
-}
+.about-content { max-width: 440px; padding: 40px 24px; text-align: center; }
+.about-title { font-family: var(--display); font-size: 28px; letter-spacing: 0.05em; margin-bottom: 8px; }
 .about-title span { color: var(--accent); }
-.about-tagline {
-  font-size: 14px; color: var(--text-dim);
-  margin-bottom: 32px; line-height: 1.6;
-}
-.about-text {
-  font-size: 14px; line-height: 1.8; color: #777; margin-bottom: 24px;
-}
+.about-tagline { font-size: 14px; color: var(--text-dim); margin-bottom: 32px; line-height: 1.6; }
+.about-text { font-size: 14px; line-height: 1.8; color: #777; margin-bottom: 24px; }
 .about-close {
-  font-family: var(--mono); font-size: 12px;
-  color: var(--text-dim); background: none;
-  border: 1px solid #333; border-radius: 20px;
-  padding: 8px 24px; cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+  background: none; border: 1px solid #333; border-radius: 20px;
+  padding: 8px 24px; cursor: pointer; transition: border-color 0.2s, color 0.2s;
 }
 .about-close:hover { border-color: #555; color: var(--text); }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 480px) {
-  #gridView { grid-template-columns: repeat(4, 1fr); }
-  .grid-cell.sz-1x1 { grid-column: span 2; grid-row: span 2; }
-  .grid-cell.sz-2x1 { grid-column: span 4; grid-row: span 2; }
-  .grid-cell.sz-1x2 { grid-column: span 2; grid-row: span 3; }
-  .grid-cell.sz-2x2 { grid-column: span 2; grid-row: span 2; }
-  .grid-cell.sz-wide { grid-column: span 4; grid-row: span 2; }
+  :root { --cell: 90px; }
   .list-item { width: 75vw; }
 }
-
 @media (min-width: 1200px) {
-  #gridView { grid-template-columns: repeat(8, 1fr); }
-  .grid-cell.sz-2x1 { grid-column: span 4; }
-  .grid-cell.sz-wide { grid-column: span 8; }
+  :root { --cell: 150px; }
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
@@ -388,7 +288,6 @@ nav > * { pointer-events: auto; }
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="logo" id="homeBtn"><span>JSON</span> Prompts</a>
   <button class="nav-btn" id="aboutBtn" aria-label="About">
@@ -398,18 +297,18 @@ nav > * { pointer-events: auto; }
   </button>
 </nav>
 
-<!-- GRID VIEW -->
-<div id="gridView"></div>
-
-<!-- LIST VIEW -->
-<div id="listView">
-  <div class="list-track" id="listTrack"></div>
+<!-- GRID -->
+<div id="gridViewport">
+  <div id="gridCanvas"></div>
 </div>
+
+<!-- LIST -->
+<div id="listView"></div>
 
 <!-- FOOTER -->
 <div class="footer-bar">
   <div class="counter" id="counter"></div>
-  <button class="view-toggle" id="viewToggle" aria-label="Toggle view">
+  <button class="pill-btn" id="viewToggle" aria-label="Toggle view">
     <svg id="listIcon" viewBox="0 0 24 24" fill="currentColor">
       <rect x="3" y="4" width="18" height="4" rx="1"/>
       <rect x="3" y="10" width="18" height="4" rx="1"/>
@@ -424,7 +323,7 @@ nav > * { pointer-events: auto; }
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
-  <div class="modal" id="modal">
+  <div class="modal">
     <button class="modal-close" id="modalClose">×</button>
     <img class="modal-image" id="modalImage" src="" alt="">
     <div class="modal-body">
@@ -458,254 +357,294 @@ let prompts = [];
 let isGrid = true;
 let listIndex = 0;
 
-const gridView = document.getElementById('gridView');
-const listView = document.getElementById('listView');
-const listTrack = document.getElementById('listTrack');
-const counter = document.getElementById('counter');
-const listIcon = document.getElementById('listIcon');
-const gridIcon = document.getElementById('gridIcon');
-const modalOverlay = document.getElementById('modalOverlay');
-const aboutOverlay = document.getElementById('aboutOverlay');
-
-// Tile size patterns — repeating sequence for visual variety
-const sizePatterns = [
-  'sz-1x1', 'sz-2x2', 'sz-1x1',
-  'sz-2x1',
-  'sz-1x1', 'sz-1x2', 'sz-1x1',
-  'sz-1x1', 'sz-1x1', 'sz-2x1',
-  'sz-wide',
-  'sz-1x1', 'sz-1x1', 'sz-2x2',
-  'sz-1x1', 'sz-1x1',
-  'sz-1x2', 'sz-1x1', 'sz-1x1',
+// Layout pattern for one tile block (matches ExtraOrdinary Things)
+// 8 columns, items are: sq (1×1), landscape (2×1), portrait (1×2)
+const tilePattern = [
+  'sq','sq','landscape','sq','sq','sq','sq','landscape',
+  'sq','sq','portrait','sq','sq','sq','portrait','sq',
+  'sq','sq','sq','sq','portrait','sq','landscape','sq',
+  'sq','sq','sq','sq','sq','landscape','sq','landscape',
 ];
 
 fetch('prompts.json')
   .then(r => r.json())
-  .then(data => { prompts = data; renderGrid(); });
+  .then(data => { prompts = data; buildGrid(); });
 
-/* ========== GRID ========== */
-function renderGrid() {
-  gridView.innerHTML = '';
-  // Repeat prompts to fill an infinite-feeling canvas
-  const tiles = repeatShuffle(prompts, 60);
+/* ============ INFINITE PAN GRID ============ */
+const gridViewport = document.getElementById('gridViewport');
+const gridCanvas = document.getElementById('gridCanvas');
 
-  tiles.forEach((p, i) => {
-    const cell = document.createElement('div');
-    cell.className = 'grid-cell ' + sizePatterns[i % sizePatterns.length];
-    cell.innerHTML = `
-      <img src="${p.image}" alt="${p.title}" loading="lazy">
-      <span class="cell-title">${p.title}</span>
-    `;
-    cell.addEventListener('click', () => openModal(p));
-    gridView.appendChild(cell);
+let tileW = 0, tileH = 0;
+let panX = 0, panY = 0;
+
+function buildGrid() {
+  // Build one tile block HTML
+  const blockHTML = buildTileBlockHTML();
+
+  // Create 3×3 = 9 copies for seamless wrapping
+  gridCanvas.innerHTML = '';
+  for (let i = 0; i < 9; i++) {
+    const block = document.createElement('div');
+    block.className = 'tile-block';
+    block.innerHTML = blockHTML;
+    gridCanvas.appendChild(block);
+  }
+
+  // Measure one block
+  requestAnimationFrame(() => {
+    const firstBlock = gridCanvas.querySelector('.tile-block');
+    tileW = firstBlock.offsetWidth;
+    tileH = firstBlock.offsetHeight;
+
+    // Arrange 3×3
+    gridCanvas.style.width = (tileW * 3 + 2) + 'px';
+    gridCanvas.style.display = 'flex';
+    gridCanvas.style.flexWrap = 'wrap';
+
+    // Center the middle tile in viewport
+    panX = -(tileW - window.innerWidth / 2 + tileW / 2);
+    panY = -(tileH - window.innerHeight / 2 + tileH / 2);
+    applyPan();
   });
 
-  counter.textContent = `${prompts.length} prompt${prompts.length !== 1 ? 's' : ''}`;
+  updateCounter();
 }
 
-function repeatShuffle(items, min) {
-  if (!items.length) return [];
-  const result = [];
-  while (result.length < min) {
-    const batch = [...items].sort(() => Math.random() - 0.5);
-    result.push(...batch);
+function buildTileBlockHTML() {
+  // Fill pattern slots with prompts (cycling)
+  let html = '';
+  tilePattern.forEach((type, i) => {
+    const p = prompts[i % prompts.length];
+    html += `<div class="item ${type}" data-idx="${i % prompts.length}">
+      <img src="${p.image}" alt="${p.title}" loading="lazy">
+      <span class="item-title">${p.title}</span>
+    </div>`;
+  });
+  return html;
+}
+
+function applyPan() {
+  // Wrap around so we never run out of canvas
+  if (tileW > 0) {
+    // Normalize panX into [-tileW, 0] range
+    panX = ((panX % tileW) + tileW) % tileW - tileW;
+    panY = ((panY % tileH) + tileH) % tileH - tileH;
   }
-  return result;
+  gridCanvas.style.transform = `translate3d(${panX}px, ${panY}px, 0)`;
 }
 
-/* ========== LIST (stacked carousel) ========== */
+// --- Drag / pan ---
+let isDragging = false;
+let dragStartX, dragStartY, dragPanStartX, dragPanStartY;
+let dragMoved = false;
+
+gridViewport.addEventListener('pointerdown', (e) => {
+  if (e.target.closest('button, a, .modal-overlay, .about-overlay')) return;
+  isDragging = true;
+  dragMoved = false;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  dragPanStartX = panX;
+  dragPanStartY = panY;
+  gridViewport.setPointerCapture(e.pointerId);
+});
+
+window.addEventListener('pointermove', (e) => {
+  if (!isDragging) return;
+  const dx = e.clientX - dragStartX;
+  const dy = e.clientY - dragStartY;
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+  panX = dragPanStartX + dx;
+  panY = dragPanStartY + dy;
+  applyPan();
+});
+
+window.addEventListener('pointerup', () => { isDragging = false; });
+
+// Click on item (only if not dragged)
+gridCanvas.addEventListener('click', (e) => {
+  if (dragMoved) return;
+  const item = e.target.closest('.item');
+  if (!item) return;
+  const idx = parseInt(item.dataset.idx);
+  if (prompts[idx]) openModal(prompts[idx]);
+});
+
+// Mouse wheel pan
+gridViewport.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  panX -= e.deltaX || 0;
+  panY -= e.deltaY || 0;
+  applyPan();
+}, { passive: false });
+
+/* ============ LIST VIEW ============ */
+const listView = document.getElementById('listView');
+let listScrollLocked = false;
+
 function renderList() {
-  listTrack.innerHTML = '';
+  listView.innerHTML = '';
   listIndex = 0;
 
   prompts.forEach((p, i) => {
     const item = document.createElement('div');
     item.className = 'list-item';
+    item.dataset.idx = i;
     item.innerHTML = `
       <img src="${p.image}" alt="${p.title}">
       <div class="list-title">${p.title}</div>
       <div class="list-model">${p.model}</div>
     `;
     item.addEventListener('click', () => openModal(p));
-    listTrack.appendChild(item);
+    listView.appendChild(item);
   });
 
   positionListItems();
-  counter.textContent = `${listIndex + 1} / ${prompts.length}`;
 }
 
 function positionListItems() {
-  const items = listTrack.querySelectorAll('.list-item');
+  const items = listView.querySelectorAll('.list-item');
   const vh = window.innerHeight;
 
   items.forEach((item, i) => {
     const offset = i - listIndex;
     item.classList.toggle('active', offset === 0);
 
+    const itemW = Math.min(window.innerWidth * 0.55, 480);
+
     if (offset === 0) {
-      // Center — large
-      item.style.transform = 'translateY(0) scale(1)';
+      item.style.transform = `translate(-50%, -50%) scale(1)`;
       item.style.opacity = '1';
       item.style.zIndex = '10';
-    } else if (offset === -1) {
-      // Above — smaller, pushed up
-      item.style.transform = `translateY(${-vh * 0.38}px) scale(0.55)`;
-      item.style.opacity = '0.5';
+    } else if (Math.abs(offset) === 1) {
+      const y = offset * vh * 0.38;
+      item.style.transform = `translate(-50%, calc(-50% + ${y}px)) scale(0.55)`;
+      item.style.opacity = '0.45';
       item.style.zIndex = '5';
-    } else if (offset === 1) {
-      // Below — smaller, pushed down
-      item.style.transform = `translateY(${vh * 0.38}px) scale(0.55)`;
-      item.style.opacity = '0.5';
-      item.style.zIndex = '5';
-    } else if (offset === -2) {
-      item.style.transform = `translateY(${-vh * 0.6}px) scale(0.35)`;
-      item.style.opacity = '0.2';
-      item.style.zIndex = '2';
-    } else if (offset === 2) {
-      item.style.transform = `translateY(${vh * 0.6}px) scale(0.35)`;
-      item.style.opacity = '0.2';
+    } else if (Math.abs(offset) === 2) {
+      const y = offset * vh * 0.55;
+      item.style.transform = `translate(-50%, calc(-50% + ${y}px)) scale(0.35)`;
+      item.style.opacity = '0.15';
       item.style.zIndex = '2';
     } else {
-      item.style.transform = `translateY(${offset * vh * 0.5}px) scale(0.2)`;
+      item.style.transform = `translate(-50%, calc(-50% + ${offset * vh}px)) scale(0.2)`;
       item.style.opacity = '0';
       item.style.zIndex = '0';
     }
   });
 
-  counter.textContent = `${listIndex + 1} / ${prompts.length}`;
+  document.getElementById('counter').textContent = `${listIndex + 1} / ${prompts.length}`;
 }
 
-// Scroll / swipe handling for list view
-let listTouchStartY = 0;
-let listScrollLocked = false;
-
-function listNavigate(direction) {
+function listNav(dir) {
   if (listScrollLocked) return;
-  const next = listIndex + direction;
+  const next = listIndex + dir;
   if (next < 0 || next >= prompts.length) return;
-
   listScrollLocked = true;
   listIndex = next;
   positionListItems();
   setTimeout(() => { listScrollLocked = false; }, 500);
 }
 
-// Mouse wheel
+// List scroll/swipe
+let listTouchY = 0;
 window.addEventListener('wheel', (e) => {
   if (isGrid || modalOverlay.classList.contains('active')) return;
   e.preventDefault();
-  listNavigate(e.deltaY > 0 ? 1 : -1);
+  listNav(e.deltaY > 0 ? 1 : -1);
 }, { passive: false });
 
-// Touch swipe
 window.addEventListener('touchstart', (e) => {
   if (isGrid) return;
-  listTouchStartY = e.touches[0].clientY;
+  listTouchY = e.touches[0].clientY;
 }, { passive: true });
 
 window.addEventListener('touchend', (e) => {
   if (isGrid) return;
-  const dy = listTouchStartY - e.changedTouches[0].clientY;
-  if (Math.abs(dy) > 40) {
-    listNavigate(dy > 0 ? 1 : -1);
-  }
+  const dy = listTouchY - e.changedTouches[0].clientY;
+  if (Math.abs(dy) > 40) listNav(dy > 0 ? 1 : -1);
 });
 
-// Arrow keys
 window.addEventListener('keydown', (e) => {
   if (isGrid || modalOverlay.classList.contains('active')) return;
-  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') listNavigate(1);
-  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') listNavigate(-1);
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') listNav(1);
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') listNav(-1);
 });
 
-// Resize
-window.addEventListener('resize', () => {
-  if (!isGrid) positionListItems();
-});
+window.addEventListener('resize', () => { if (!isGrid) positionListItems(); });
 
-/* ========== VIEW TOGGLE ========== */
+/* ============ VIEW TOGGLE ============ */
+const listIcon = document.getElementById('listIcon');
+const gridIcon = document.getElementById('gridIcon');
+
 document.getElementById('viewToggle').addEventListener('click', () => {
   isGrid = !isGrid;
   listIcon.style.display = isGrid ? 'block' : 'none';
   gridIcon.style.display = isGrid ? 'none' : 'block';
 
   if (isGrid) {
-    gridView.style.display = '';
+    gridViewport.style.display = '';
     listView.style.display = 'none';
-    document.body.style.overflow = '';
+    updateCounter();
   } else {
-    gridView.style.display = 'none';
+    gridViewport.style.display = 'none';
     listView.style.display = 'block';
-    document.body.style.overflow = 'hidden';
     renderList();
   }
 });
 
-/* ========== MODAL ========== */
+function updateCounter() {
+  document.getElementById('counter').textContent =
+    `${prompts.length} prompt${prompts.length !== 1 ? 's' : ''}`;
+}
+
+/* ============ MODAL ============ */
+const modalOverlay = document.getElementById('modalOverlay');
+
 function openModal(p) {
   document.getElementById('modalImage').src = p.image;
   document.getElementById('modalTitle').textContent = p.title;
   document.getElementById('modalModel').textContent = p.model;
-
-  const tagsEl = document.getElementById('modalTags');
-  tagsEl.innerHTML = (p.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
-
+  document.getElementById('modalTags').innerHTML =
+    (p.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
   document.getElementById('modalJson').textContent = JSON.stringify(p.prompt, null, 2);
 
-  const sourceEl = document.getElementById('modalSource');
-  sourceEl.style.display = p.source ? 'inline-block' : 'none';
-  if (p.source) sourceEl.href = p.source;
+  const src = document.getElementById('modalSource');
+  src.style.display = p.source ? 'inline-block' : 'none';
+  if (p.source) src.href = p.source;
 
-  const copyBtn = document.getElementById('copyBtn');
-  copyBtn.textContent = 'COPY';
-  copyBtn.classList.remove('copied');
-
+  const cb = document.getElementById('copyBtn');
+  cb.textContent = 'COPY'; cb.classList.remove('copied');
   modalOverlay.classList.add('active');
 }
 
-function closeModal() {
-  modalOverlay.classList.remove('active');
-}
+function closeModal() { modalOverlay.classList.remove('active'); }
 
 document.getElementById('modalClose').addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', (e) => {
-  if (e.target === modalOverlay) closeModal();
-});
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
 
 document.getElementById('copyBtn').addEventListener('click', () => {
   const json = document.getElementById('modalJson').textContent;
   navigator.clipboard.writeText(json).then(() => {
     const btn = document.getElementById('copyBtn');
-    btn.textContent = 'COPIED';
-    btn.classList.add('copied');
+    btn.textContent = 'COPIED'; btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
   });
 });
 
-/* ========== ABOUT ========== */
-document.getElementById('aboutBtn').addEventListener('click', () => {
-  aboutOverlay.classList.add('active');
-});
-document.getElementById('aboutClose').addEventListener('click', () => {
-  aboutOverlay.classList.remove('active');
-});
-aboutOverlay.addEventListener('click', (e) => {
-  if (e.target === aboutOverlay) aboutOverlay.classList.remove('active');
-});
+/* ============ ABOUT ============ */
+const aboutOverlay = document.getElementById('aboutOverlay');
+document.getElementById('aboutBtn').addEventListener('click', () => aboutOverlay.classList.add('active'));
+document.getElementById('aboutClose').addEventListener('click', () => aboutOverlay.classList.remove('active'));
+aboutOverlay.addEventListener('click', (e) => { if (e.target === aboutOverlay) aboutOverlay.classList.remove('active'); });
 
-/* ========== KEYBOARD ========== */
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeModal();
-    aboutOverlay.classList.remove('active');
-  }
+  if (e.key === 'Escape') { closeModal(); aboutOverlay.classList.remove('active'); }
 });
 
-/* ========== HOME ========== */
 document.getElementById('homeBtn').addEventListener('click', (e) => {
   e.preventDefault();
-  if (isGrid) window.scrollTo({ top: 0, behavior: 'smooth' });
-  else { listIndex = 0; positionListItems(); }
+  if (!isGrid) { listIndex = 0; positionListItems(); }
 });
 </script>
 </body>
