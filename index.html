@@ -411,11 +411,35 @@ function buildGrid() {
 }
 
 function buildTileBlockHTML() {
-  // Fill pattern slots with prompts (cycling)
+  // Fill 32 slots with prompts, ensuring no two adjacent cells use the same prompt.
+  // "Adjacent" = previous slot AND the slot 8 positions back (same column, row above).
+  const n = prompts.length;
+  const slots = [];
+  for (let i = 0; i < tilePattern.length; i++) {
+    // Collect indices that would be adjacent
+    const avoid = new Set();
+    if (i > 0) avoid.add(slots[i - 1]);           // left neighbor
+    if (i >= 8) avoid.add(slots[i - 8]);           // top neighbor (same col)
+    if (i >= 7) avoid.add(slots[i - 7]);           // top-right diagonal
+    if (i >= 9) avoid.add(slots[i - 9]);           // top-left diagonal
+
+    // Pick a random index that isn't in the avoid set
+    let candidates = [];
+    for (let j = 0; j < n; j++) {
+      if (!avoid.has(j)) candidates.push(j);
+    }
+    // Fallback: if all are avoided (tiny prompt count), allow any
+    if (candidates.length === 0) {
+      candidates = Array.from({ length: n }, (_, j) => j);
+    }
+    slots.push(candidates[Math.floor(Math.random() * candidates.length)]);
+  }
+
   let html = '';
-  tilePattern.forEach((type, i) => {
-    const p = prompts[i % prompts.length];
-    html += `<div class="item ${type}" data-idx="${i % prompts.length}">
+  slots.forEach((idx, i) => {
+    const p = prompts[idx];
+    const type = tilePattern[i];
+    html += `<div class="item ${type}" data-idx="${idx}">
       <img src="${p.image}" alt="${p.title}" loading="lazy">
       <span class="item-title">${p.title}</span>
     </div>`;
