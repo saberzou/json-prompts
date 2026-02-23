@@ -518,7 +518,6 @@ function renderList() {
     item.innerHTML = `
       <img src="${p.image}" alt="${p.title}">
       <div class="list-title">${p.title}</div>
-      <div class="list-model">${p.model}</div>
     `;
     item.addEventListener('click', () => openModal(p));
     listView.appendChild(item);
