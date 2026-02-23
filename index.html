@@ -458,17 +458,25 @@ function applyPan() {
   gridCanvas.style.transform = `translate3d(${panX}px, ${panY}px, 0)`;
 }
 
-// --- Drag / pan ---
+// --- Drag / pan with inertia ---
 let isDragging = false;
 let dragStartX, dragStartY, dragPanStartX, dragPanStartY;
 let dragMoved = false;
+let velX = 0, velY = 0;
+let lastMoveX = 0, lastMoveY = 0, lastMoveTime = 0;
+let inertiaRAF = null;
 
 gridViewport.addEventListener('pointerdown', (e) => {
   if (e.target.closest('button, a, .modal-overlay, .about-overlay')) return;
   isDragging = true;
   dragMoved = false;
+  velX = 0; velY = 0;
+  if (inertiaRAF) { cancelAnimationFrame(inertiaRAF); inertiaRAF = null; }
   dragStartX = e.clientX;
   dragStartY = e.clientY;
+  lastMoveX = e.clientX;
+  lastMoveY = e.clientY;
+  lastMoveTime = performance.now();
   dragPanStartX = panX;
   dragPanStartY = panY;
   gridViewport.setPointerCapture(e.pointerId);
@@ -476,15 +484,45 @@ gridViewport.addEventListener('pointerdown', (e) => {
 
 window.addEventListener('pointermove', (e) => {
   if (!isDragging) return;
+  const now = performance.now();
+  const dt = now - lastMoveTime;
   const dx = e.clientX - dragStartX;
   const dy = e.clientY - dragStartY;
   if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+  if (dt > 0) {
+    velX = (e.clientX - lastMoveX) / dt * 16; // px per frame (~16ms)
+    velY = (e.clientY - lastMoveY) / dt * 16;
+  }
+  lastMoveX = e.clientX;
+  lastMoveY = e.clientY;
+  lastMoveTime = now;
   panX = dragPanStartX + dx;
   panY = dragPanStartY + dy;
   applyPan();
 });
 
-window.addEventListener('pointerup', () => { isDragging = false; });
+window.addEventListener('pointerup', () => {
+  if (!isDragging) return;
+  isDragging = false;
+  // Kick off inertia if velocity is meaningful
+  if (Math.abs(velX) > 0.5 || Math.abs(velY) > 0.5) {
+    startInertia();
+  }
+});
+
+function startInertia() {
+  const friction = 0.94;
+  function tick() {
+    velX *= friction;
+    velY *= friction;
+    if (Math.abs(velX) < 0.1 && Math.abs(velY) < 0.1) { inertiaRAF = null; return; }
+    panX += velX;
+    panY += velY;
+    applyPan();
+    inertiaRAF = requestAnimationFrame(tick);
+  }
+  inertiaRAF = requestAnimationFrame(tick);
+}
 
 // Click on item (only if not dragged)
 gridCanvas.addEventListener('click', (e) => {
