@@ -247,7 +247,7 @@
     "source": "https://x.com/hewarsaber/status/2023828954528776574",
     "author": "Hewar",
     "prompt": {
-      "prompt": "A hyper-realistic {{object}} rendered as a sculptural object carved entirely from solid, optical-grade crystal glass. The object preserves its true proportions and recognizable silhouette, with precise geometry and clean edge definition appropriate to its form. It is floating in space at a slight dynamic angle, not perfectly straight, allowing light interaction across multiple surfaces.\n\nA single focused white light source enters the object from one direction, refracting through the internal volume and producing layered internal reflections, chromatic aberration, and physically accurate spectral dispersion along edges, corners, and internal transitions. Light bends, splits, and bounces naturally within the material, creating complex but controlled optical behavior.\n\nInside the glass, subtle volumetric depth is visible, including faint internal reflections, refractive distortions, micro-scratches, and tiny dust particles suspended within the material. A small, intense specular highlight appears on a sharp edge or curvature where the light strikes most directly, producing a crisp optical spark.\n\nReflections are sharp and physically accurate. The glass feels heavy, dense, and premium — never plastic, never stylized, never neon. The background is a pure black void with soft falloff and no visible environment. Lighting is minimal and studio-controlled, designed to emphasize form, refraction, internal depth, and edge clarity rather than brightness.\n\nNo text, no logos, no markings.",
+      "prompt": "A hyper-realistic {{object}} rendered as a sculptural object carved entirely from solid, optical-grade crystal glass. The object preserves its true proportions and recognizable silhouette, with precise geometry and clean edge definition appropriate to its form. It is floating in space at a slight dynamic angle, not perfectly straight, allowing light interaction across multiple surfaces.\n\nA single focused white light source enters the object from one direction, refracting through the internal volume and producing layered internal reflections, chromatic aberration, and physically accurate spectral dispersion along edges, corners, and internal transitions. Light bends, splits, and bounces naturally within the material, creating complex but controlled optical behavior.\n\nInside the glass, subtle volumetric depth is visible, including faint internal reflections, refractive distortions, micro-scratches, and tiny dust particles suspended within the material. A small, intense specular highlight appears on a sharp edge or curvature where the light strikes most directly, producing a crisp optical spark.\n\nReflections are sharp and physically accurate. The glass feels heavy, dense, and premium \u2014 never plastic, never stylized, never neon. The background is a pure black void with soft falloff and no visible environment. Lighting is minimal and studio-controlled, designed to emphasize form, refraction, internal depth, and edge clarity rather than brightness.\n\nNo text, no logos, no markings.",
       "style": {
         "lighting": "Low-key studio lighting with a single directional white light source",
         "materials": "Optical-grade crystal glass with physically accurate refraction and dispersion",
@@ -413,7 +413,7 @@
         "shadow": "gentle yet defined diffuse shadows directly beneath objects for grounded realism",
         "composition": "clean centered or grid layout on seamless matte white background",
         "color_palette": {
-          "primary_tones": "pastel and candy-like colors — mint green, soft orange, butter yellow, warm gray",
+          "primary_tones": "pastel and candy-like colors \u2014 mint green, soft orange, butter yellow, warm gray",
           "accent_tones": "slightly darker stitching seams for depth contrast",
           "background": "neutral white, softly illuminated"
         },
@@ -572,7 +572,13 @@
     "title": "Frosted Bubble 3D Icons",
     "image": "images/010.jpg",
     "model": "GPT-4o / Image Gen",
-    "tags": ["3d", "icon", "frosted", "translucent", "bubble"],
+    "tags": [
+      "3d",
+      "icon",
+      "frosted",
+      "translucent",
+      "bubble"
+    ],
     "source": "https://x.com/anima_labs/status/1953762729916772449",
     "author": "Anima",
     "prompt": {
@@ -585,15 +591,27 @@
         "detail_retention": "smooth rounded edges, subtle internal reflections"
       },
       "material_properties": {
-        "base_material": ["frosted translucent plastic", "semi-transparent matte acrylic"],
+        "base_material": [
+          "frosted translucent plastic",
+          "semi-transparent matte acrylic"
+        ],
         "internal_elements": "floating colorful spheres, visible through the outer shell",
         "surface_finish": "frosted, diffused matte texture with light translucency",
         "texture_behavior": "no external color tint, transparency reveals inner objects",
         "branding_elements": "none"
       },
       "color_palette": {
-        "primary": ["#FFFFFF", "#F5F5F5"],
-        "accents": ["#FF69B4", "#FFA500", "#6A5ACD", "#00CED1", "#FFD700"],
+        "primary": [
+          "#FFFFFF",
+          "#F5F5F5"
+        ],
+        "accents": [
+          "#FF69B4",
+          "#FFA500",
+          "#6A5ACD",
+          "#00CED1",
+          "#FFD700"
+        ],
         "contrast": "very high"
       },
       "lighting": {
@@ -614,5 +632,32 @@
         "perfect for high-contrast, collectible-style icons"
       ]
     }
+  },
+  {
+    "id": "011",
+    "title": "3D Voxel Icon",
+    "image": "images/voxel-icon.png",
+    "size": "sq",
+    "tags": [
+      "3D",
+      "voxel",
+      "icon",
+      "isometric",
+      "pixel"
+    ],
+    "prompt": "{\n  \"style\": \"3D voxel icon, isometric pixel sculpture\",\n  \"subject\": \"{SUBJECT}\",\n  \"geometry\": {\n    \"construction\": \"built entirely from uniform cubic voxels\",\n    \"grid_visibility\": \"clearly visible cube grid\",\n    \"edge_style\": \"stepped, blocky, pixelated edges\",\n    \"proportions\": \"simple, icon-like, minimal detail\"\n  },\n  \"rendering\": {\n    \"lighting\": \"soft studio lighting with gentle shadows\",\n    \"material\": \"smooth matte or subtle semi-gloss plastic\",\n    \"shading\": \"clean global illumination, soft gradients\",\n    \"depth\": \"strong dimensional depth and volume\"\n  },\n  \"camera\": {\n    \"angle\": \"3/4 isometric view\",\n    \"rotation\": \"slightly tilted for dynamic presentation\",\n    \"framing\": \"centered composition\"\n  },\n  \"color\": {\n    \"palette\": \"{COLOR_STYLE}\",\n    \"saturation\": \"vibrant but clean\",\n    \"contrast\": \"crisp separation between surfaces\"\n  },\n  \"background\": {\n    \"type\": \"transparent PNG\",\n    \"shadow\": \"soft floating shadow under object\",\n    \"environment\": \"no scene, no floor, no horizon\"\n  },\n  \"aesthetic\": [\n    \"minimalist\",\n    \"modern icon design\",\n    \"toy-like\",\n    \"clean\",\n    \"precise\",\n    \"high resolution\",\n    \"product render quality\"\n  ],\n  \"quality\": {\n    \"resolution\": \"high detail\",\n    \"edges\": \"sharp and clean\",\n    \"noise\": \"none\",\n    \"style_consistency\": \"strict voxel construction\"\n  }\n}"
+  },
+  {
+    "id": "012",
+    "title": "Calligraphic Text Portrait",
+    "image": "images/typographic-portrait-2.png",
+    "size": "sq",
+    "tags": [
+      "typography",
+      "portrait",
+      "calligraphy",
+      "text art"
+    ],
+    "prompt": "{\n  \"task\": \"typographic_art_portrait\",\n  \"input\": {\n    \"source_image\": \"USER_UPLOADED_IMAGE\",\n    \"reference_subject\": \"person\"\n  },\n  \"composition\": {\n    \"portrait_orientation\": \"left_facing_side_profile\",\n    \"full_subject_visibility\": true,\n    \"include\": [\n      \"face\",\n      \"hair\",\n      \"facial_features\"\n    ]\n  },\n  \"style\": {\n    \"type\": \"typographic_portrait\",\n    \"text_style\": \"white_calligraphic_text\",\n    \"text_content\": \"your text here\",\n    \"text_repetition\": true,\n    \"text_exclusivity\": \"entire image formed only from repeated text\"\n  },\n  \"color\": {\n    \"text_color\": \"white\"\n  }\n}"
   }
 ]
