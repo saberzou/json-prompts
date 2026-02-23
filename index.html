@@ -10,29 +10,28 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0a0a0a;
-  --surface: #141414;
+  --bg: #000;
+  --surface: #111;
   --border: #222;
   --text: #e8e8e8;
-  --text-dim: #666;
+  --text-dim: #555;
   --accent: #ff6b35;
   --mono: 'JetBrains Mono', monospace;
   --sans: 'DM Sans', sans-serif;
   --display: 'Archivo Black', sans-serif;
+  --gap: 1px;
 }
 
-html { background: var(--bg); }
-
-body {
-  font-family: var(--sans);
+html, body {
   background: var(--bg);
+  font-family: var(--sans);
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- NAV --- */
+/* ========== NAV ========== */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -47,8 +46,8 @@ nav > * { pointer-events: auto; }
 
 .logo {
   font-family: var(--display);
-  font-size: 16px;
-  letter-spacing: 0.08em;
+  font-size: 14px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text);
   text-decoration: none;
@@ -60,20 +59,18 @@ nav > * { pointer-events: auto; }
   width: 40px; height: 40px;
   border-radius: 50%;
   border: 1.5px solid #333;
-  background: rgba(10,10,10,0.8);
+  background: rgba(0,0,0,0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: var(--text);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s, background 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s;
 }
-.nav-btn:hover { border-color: #555; background: rgba(30,30,30,0.9); }
+.nav-btn:hover { border-color: #666; }
 .nav-btn svg { width: 16px; height: 16px; }
 
-/* --- FOOTER BAR --- */
+/* ========== FOOTER BAR ========== */
 .footer-bar {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -97,87 +94,65 @@ nav > * { pointer-events: auto; }
   width: 40px; height: 40px;
   border-radius: 50%;
   border: 1.5px solid #333;
-  background: rgba(10,10,10,0.8);
+  background: rgba(0,0,0,0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: var(--text);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s, background 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s;
 }
-.view-toggle:hover { border-color: #555; }
+.view-toggle:hover { border-color: #666; }
 .view-toggle svg { width: 18px; height: 18px; }
 
-/* --- GRID VIEW --- */
-.gallery {
-  padding: 80px 8px 100px;
-  transition: opacity 0.3s;
-}
-
-.gallery.grid-view {
+/* ========== GRID VIEW — irregular mosaic ========== */
+#gridView {
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
+  gap: var(--gap);
+  /* 6-column base grid for varied tile sizes */
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  grid-auto-flow: dense;
 }
 
-.gallery.list-view {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 600px;
-  margin: 0 auto;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-/* --- CARD --- */
-.card {
+.grid-cell {
   position: relative;
-  cursor: pointer;
   overflow: hidden;
   background: var(--surface);
+  cursor: pointer;
 }
 
-.grid-view .card {
-  aspect-ratio: 1;
-}
+/* Tile size classes — assigned in JS based on pattern */
+.grid-cell.sz-1x1 { grid-column: span 2; grid-row: span 2; }
+.grid-cell.sz-2x1 { grid-column: span 4; grid-row: span 2; }
+.grid-cell.sz-1x2 { grid-column: span 2; grid-row: span 4; }
+.grid-cell.sz-2x2 { grid-column: span 3; grid-row: span 3; }
+.grid-cell.sz-wide { grid-column: span 6; grid-row: span 2; }
 
-.list-view .card {
-  border-radius: 0;
-}
-
-.card img {
-  width: 100%;
-  height: 100%;
+.grid-cell img {
+  width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s cubic-bezier(0.25, 0, 0.25, 1);
 }
+.grid-cell:hover img { transform: scale(1.04); }
 
-.card:hover img {
-  transform: scale(1.03);
-}
-
-/* Card overlay on hover (grid only) */
-.grid-view .card::after {
+/* Hover overlay */
+.grid-cell::after {
   content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 40%);
   opacity: 0;
   transition: opacity 0.3s;
   pointer-events: none;
 }
-.grid-view .card:hover::after { opacity: 1; }
+.grid-cell:hover::after { opacity: 1; }
 
-.card-title {
+.grid-cell .cell-title {
   position: absolute;
-  bottom: 12px; left: 12px; right: 12px;
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 500;
+  bottom: 12px; left: 14px; right: 14px;
+  font-size: 13px; font-weight: 500;
   color: #fff;
   opacity: 0;
   transform: translateY(6px);
@@ -185,133 +160,145 @@ nav > * { pointer-events: auto; }
   z-index: 2;
   pointer-events: none;
 }
-.grid-view .card:hover .card-title {
-  opacity: 1;
-  transform: translateY(0);
+.grid-cell:hover .cell-title {
+  opacity: 1; transform: translateY(0);
 }
 
-/* List view card extras */
-.list-view .card-title {
-  position: static;
-  opacity: 1;
-  transform: none;
-  padding: 16px 0 4px;
-  font-size: 15px;
-}
-.list-view .card::after { display: none; }
-
-.card-model {
+/* ========== LIST VIEW — stacked carousel ========== */
+#listView {
   display: none;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text-dim);
-  padding: 0 0 12px;
-}
-.list-view .card-model { display: block; }
-
-/* --- MODAL --- */
-.modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 200;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-.modal-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
+  overflow: hidden;
+  perspective: 800px;
 }
 
-.modal {
-  width: 90%;
-  max-width: 560px;
-  max-height: 85vh;
-  overflow-y: auto;
+.list-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.25, 0, 0.25, 1);
+  will-change: transform;
+}
+
+.list-item {
+  position: absolute;
+  width: 55vw;
+  max-width: 480px;
+  aspect-ratio: 1;
+  border-radius: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.25, 0, 0.25, 1),
+              opacity 0.5s cubic-bezier(0.25, 0, 0.25, 1);
+  will-change: transform, opacity;
   background: var(--surface);
-  border: 1px solid var(--border);
+}
+
+.list-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.list-item .list-title {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  font-size: 15px; font-weight: 500;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.list-item.active .list-title { opacity: 1; }
+
+.list-item .list-model {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 16px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.list-item.active .list-model { opacity: 1; }
+
+/* ========== MODAL ========== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+.modal {
+  width: 90%; max-width: 540px; max-height: 85vh;
+  overflow-y: auto;
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
   border-radius: 12px;
   transform: translateY(20px) scale(0.97);
   transition: transform 0.3s;
 }
-.modal-overlay.active .modal {
-  transform: translateY(0) scale(1);
-}
+.modal-overlay.active .modal { transform: translateY(0) scale(1); }
 
 .modal-image {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  display: block;
+  width: 100%; aspect-ratio: 1;
+  object-fit: cover; display: block;
 }
 
 .modal-body { padding: 20px; }
 
 .modal-title {
-  font-family: var(--sans);
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 18px; font-weight: 700;
   margin-bottom: 4px;
 }
 
 .modal-model {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--text-dim);
-  margin-bottom: 16px;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--text-dim); margin-bottom: 16px;
 }
 
 .modal-tags {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
+  display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;
 }
 .tag {
-  font-family: var(--mono);
-  font-size: 11px;
+  font-family: var(--mono); font-size: 11px;
   color: var(--accent);
-  border: 1px solid rgba(255,107,53,0.3);
-  padding: 3px 8px;
-  border-radius: 4px;
+  border: 1px solid rgba(255,107,53,0.25);
+  padding: 3px 8px; border-radius: 4px;
   user-select: none;
 }
 
 .json-block {
   position: relative;
-  background: #0d0d0d;
-  border: 1px solid var(--border);
+  background: #050505;
+  border: 1px solid #1a1a1a;
   border-radius: 8px;
   padding: 16px;
   overflow-x: auto;
 }
-
 .json-block pre {
-  font-family: var(--mono);
-  font-size: 12px;
-  line-height: 1.6;
-  color: #ccc;
-  white-space: pre-wrap;
-  word-break: break-word;
+  font-family: var(--mono); font-size: 12px;
+  line-height: 1.6; color: #aaa;
+  white-space: pre-wrap; word-break: break-word;
 }
 
 .copy-btn {
-  position: absolute;
-  top: 8px; right: 8px;
-  font-family: var(--mono);
-  font-size: 11px;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 12px;
-  cursor: pointer;
+  position: absolute; top: 8px; right: 8px;
+  font-family: var(--mono); font-size: 11px;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 4px;
+  padding: 5px 12px; cursor: pointer;
   transition: background 0.2s, transform 0.1s;
 }
 .copy-btn:hover { background: #e55a28; }
@@ -319,145 +306,84 @@ nav > * { pointer-events: auto; }
 .copy-btn.copied { background: #2a9d4a; }
 
 .modal-source {
-  display: inline-block;
-  margin-top: 12px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text-dim);
-  text-decoration: none;
-  border-bottom: 1px solid #333;
+  display: inline-block; margin-top: 12px;
+  font-family: var(--mono); font-size: 11px;
+  color: var(--text-dim); text-decoration: none;
+  border-bottom: 1px solid #222;
   transition: color 0.2s;
 }
 .modal-source:hover { color: var(--text); }
 
 .modal-close {
-  position: sticky;
-  top: 12px;
-  float: right;
+  position: sticky; top: 12px; float: right;
   margin: 12px 12px 0 0;
   width: 32px; height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  font-size: 18px;
-  line-height: 1;
+  border-radius: 50%; border: none;
+  background: rgba(255,255,255,0.1);
+  color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 10; font-size: 18px; line-height: 1;
   transition: background 0.2s;
 }
-.modal-close:hover { background: rgba(0,0,0,0.9); }
+.modal-close:hover { background: rgba(255,255,255,0.2); }
 
-/* --- ABOUT PANEL --- */
+/* ========== ABOUT ========== */
 .about-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 300;
-  background: rgba(0,0,0,0.9);
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.92);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
   transition: opacity 0.3s;
 }
-.about-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
+.about-overlay.active { opacity: 1; pointer-events: auto; }
 
 .about-content {
-  max-width: 480px;
-  padding: 40px 24px;
-  text-align: center;
+  max-width: 440px; padding: 40px 24px; text-align: center;
 }
-
 .about-title {
-  font-family: var(--display);
-  font-size: 28px;
-  letter-spacing: 0.05em;
-  margin-bottom: 8px;
+  font-family: var(--display); font-size: 28px;
+  letter-spacing: 0.05em; margin-bottom: 8px;
 }
 .about-title span { color: var(--accent); }
-
 .about-tagline {
-  font-size: 14px;
-  color: var(--text-dim);
-  margin-bottom: 32px;
-  line-height: 1.6;
+  font-size: 14px; color: var(--text-dim);
+  margin-bottom: 32px; line-height: 1.6;
 }
-
 .about-text {
-  font-size: 14px;
-  line-height: 1.8;
-  color: #999;
-  margin-bottom: 24px;
+  font-size: 14px; line-height: 1.8; color: #777; margin-bottom: 24px;
 }
-
 .about-close {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--text-dim);
-  background: none;
-  border: 1px solid #333;
-  border-radius: 20px;
-  padding: 8px 24px;
-  cursor: pointer;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--text-dim); background: none;
+  border: 1px solid #333; border-radius: 20px;
+  padding: 8px 24px; cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
 }
 .about-close:hover { border-color: #555; color: var(--text); }
 
-/* --- PLACEHOLDER (empty state) --- */
-.placeholder-card {
-  aspect-ratio: 1;
-  background: var(--surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.placeholder-card span {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: #333;
-}
-
-/* --- RESPONSIVE --- */
+/* ========== RESPONSIVE ========== */
 @media (max-width: 480px) {
-  .gallery.grid-view {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .gallery.list-view {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-}
-
-@media (min-width: 768px) {
-  .gallery.grid-view {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-    padding: 80px 4px 100px;
-  }
-  .gallery.list-view {
-    max-width: 640px;
-  }
+  #gridView { grid-template-columns: repeat(4, 1fr); }
+  .grid-cell.sz-1x1 { grid-column: span 2; grid-row: span 2; }
+  .grid-cell.sz-2x1 { grid-column: span 4; grid-row: span 2; }
+  .grid-cell.sz-1x2 { grid-column: span 2; grid-row: span 3; }
+  .grid-cell.sz-2x2 { grid-column: span 2; grid-row: span 2; }
+  .grid-cell.sz-wide { grid-column: span 4; grid-row: span 2; }
+  .list-item { width: 75vw; }
 }
 
 @media (min-width: 1200px) {
-  .gallery.grid-view {
-    grid-template-columns: repeat(5, 1fr);
-  }
+  #gridView { grid-template-columns: repeat(8, 1fr); }
+  .grid-cell.sz-2x1 { grid-column: span 4; }
+  .grid-cell.sz-wide { grid-column: span 8; }
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
 </style>
 </head>
 <body>
@@ -472,20 +398,23 @@ nav > * { pointer-events: auto; }
   </button>
 </nav>
 
-<!-- GALLERY -->
-<div class="gallery grid-view" id="gallery"></div>
+<!-- GRID VIEW -->
+<div id="gridView"></div>
+
+<!-- LIST VIEW -->
+<div id="listView">
+  <div class="list-track" id="listTrack"></div>
+</div>
 
 <!-- FOOTER -->
 <div class="footer-bar">
   <div class="counter" id="counter"></div>
   <button class="view-toggle" id="viewToggle" aria-label="Toggle view">
-    <!-- List icon (shown when in grid mode) -->
     <svg id="listIcon" viewBox="0 0 24 24" fill="currentColor">
       <rect x="3" y="4" width="18" height="4" rx="1"/>
       <rect x="3" y="10" width="18" height="4" rx="1"/>
       <rect x="3" y="16" width="18" height="4" rx="1"/>
     </svg>
-    <!-- Grid icon (shown when in list mode) -->
     <svg id="gridIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none">
       <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
       <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
@@ -527,68 +456,192 @@ nav > * { pointer-events: auto; }
 <script>
 let prompts = [];
 let isGrid = true;
+let listIndex = 0;
 
-const gallery = document.getElementById('gallery');
+const gridView = document.getElementById('gridView');
+const listView = document.getElementById('listView');
+const listTrack = document.getElementById('listTrack');
 const counter = document.getElementById('counter');
-const viewToggle = document.getElementById('viewToggle');
 const listIcon = document.getElementById('listIcon');
 const gridIcon = document.getElementById('gridIcon');
 const modalOverlay = document.getElementById('modalOverlay');
 const aboutOverlay = document.getElementById('aboutOverlay');
 
-// Load data
+// Tile size patterns — repeating sequence for visual variety
+const sizePatterns = [
+  'sz-1x1', 'sz-2x2', 'sz-1x1',
+  'sz-2x1',
+  'sz-1x1', 'sz-1x2', 'sz-1x1',
+  'sz-1x1', 'sz-1x1', 'sz-2x1',
+  'sz-wide',
+  'sz-1x1', 'sz-1x1', 'sz-2x2',
+  'sz-1x1', 'sz-1x1',
+  'sz-1x2', 'sz-1x1', 'sz-1x1',
+];
+
 fetch('prompts.json')
   .then(r => r.json())
-  .then(data => {
-    prompts = data;
-    render();
-  });
+  .then(data => { prompts = data; renderGrid(); });
 
-function render() {
-  gallery.innerHTML = '';
-  gallery.className = isGrid ? 'gallery grid-view' : 'gallery list-view';
-  listIcon.style.display = isGrid ? 'block' : 'none';
-  gridIcon.style.display = isGrid ? 'none' : 'block';
+/* ========== GRID ========== */
+function renderGrid() {
+  gridView.innerHTML = '';
+  // Repeat prompts to fill an infinite-feeling canvas
+  const tiles = repeatShuffle(prompts, 60);
 
-  // For grid: repeat items to fill screen and create infinite feel
-  const items = isGrid ? repeatToFill(prompts) : prompts;
-
-  items.forEach((p, i) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
+  tiles.forEach((p, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'grid-cell ' + sizePatterns[i % sizePatterns.length];
+    cell.innerHTML = `
       <img src="${p.image}" alt="${p.title}" loading="lazy">
-      <div class="card-title">${p.title}</div>
-      ${!isGrid ? `<div class="card-model">${p.model}</div>` : ''}
+      <span class="cell-title">${p.title}</span>
     `;
-    card.addEventListener('click', () => openModal(p));
-    gallery.appendChild(card);
+    cell.addEventListener('click', () => openModal(p));
+    gridView.appendChild(cell);
   });
 
   counter.textContent = `${prompts.length} prompt${prompts.length !== 1 ? 's' : ''}`;
 }
 
-function repeatToFill(items) {
-  if (items.length === 0) return [];
-  // Aim for enough cards to fill viewport generously
-  const minCards = 40;
-  const repeated = [];
-  while (repeated.length < minCards) {
-    // Shuffle each batch for variety
-    const shuffled = [...items].sort(() => Math.random() - 0.5);
-    repeated.push(...shuffled);
+function repeatShuffle(items, min) {
+  if (!items.length) return [];
+  const result = [];
+  while (result.length < min) {
+    const batch = [...items].sort(() => Math.random() - 0.5);
+    result.push(...batch);
   }
-  return repeated;
+  return result;
 }
 
-// View toggle
-viewToggle.addEventListener('click', () => {
-  isGrid = !isGrid;
-  render();
-  window.scrollTo({ top: 0, behavior: 'instant' });
+/* ========== LIST (stacked carousel) ========== */
+function renderList() {
+  listTrack.innerHTML = '';
+  listIndex = 0;
+
+  prompts.forEach((p, i) => {
+    const item = document.createElement('div');
+    item.className = 'list-item';
+    item.innerHTML = `
+      <img src="${p.image}" alt="${p.title}">
+      <div class="list-title">${p.title}</div>
+      <div class="list-model">${p.model}</div>
+    `;
+    item.addEventListener('click', () => openModal(p));
+    listTrack.appendChild(item);
+  });
+
+  positionListItems();
+  counter.textContent = `${listIndex + 1} / ${prompts.length}`;
+}
+
+function positionListItems() {
+  const items = listTrack.querySelectorAll('.list-item');
+  const vh = window.innerHeight;
+
+  items.forEach((item, i) => {
+    const offset = i - listIndex;
+    item.classList.toggle('active', offset === 0);
+
+    if (offset === 0) {
+      // Center — large
+      item.style.transform = 'translateY(0) scale(1)';
+      item.style.opacity = '1';
+      item.style.zIndex = '10';
+    } else if (offset === -1) {
+      // Above — smaller, pushed up
+      item.style.transform = `translateY(${-vh * 0.38}px) scale(0.55)`;
+      item.style.opacity = '0.5';
+      item.style.zIndex = '5';
+    } else if (offset === 1) {
+      // Below — smaller, pushed down
+      item.style.transform = `translateY(${vh * 0.38}px) scale(0.55)`;
+      item.style.opacity = '0.5';
+      item.style.zIndex = '5';
+    } else if (offset === -2) {
+      item.style.transform = `translateY(${-vh * 0.6}px) scale(0.35)`;
+      item.style.opacity = '0.2';
+      item.style.zIndex = '2';
+    } else if (offset === 2) {
+      item.style.transform = `translateY(${vh * 0.6}px) scale(0.35)`;
+      item.style.opacity = '0.2';
+      item.style.zIndex = '2';
+    } else {
+      item.style.transform = `translateY(${offset * vh * 0.5}px) scale(0.2)`;
+      item.style.opacity = '0';
+      item.style.zIndex = '0';
+    }
+  });
+
+  counter.textContent = `${listIndex + 1} / ${prompts.length}`;
+}
+
+// Scroll / swipe handling for list view
+let listTouchStartY = 0;
+let listScrollLocked = false;
+
+function listNavigate(direction) {
+  if (listScrollLocked) return;
+  const next = listIndex + direction;
+  if (next < 0 || next >= prompts.length) return;
+
+  listScrollLocked = true;
+  listIndex = next;
+  positionListItems();
+  setTimeout(() => { listScrollLocked = false; }, 500);
+}
+
+// Mouse wheel
+window.addEventListener('wheel', (e) => {
+  if (isGrid || modalOverlay.classList.contains('active')) return;
+  e.preventDefault();
+  listNavigate(e.deltaY > 0 ? 1 : -1);
+}, { passive: false });
+
+// Touch swipe
+window.addEventListener('touchstart', (e) => {
+  if (isGrid) return;
+  listTouchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener('touchend', (e) => {
+  if (isGrid) return;
+  const dy = listTouchStartY - e.changedTouches[0].clientY;
+  if (Math.abs(dy) > 40) {
+    listNavigate(dy > 0 ? 1 : -1);
+  }
 });
 
-// Modal
+// Arrow keys
+window.addEventListener('keydown', (e) => {
+  if (isGrid || modalOverlay.classList.contains('active')) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') listNavigate(1);
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') listNavigate(-1);
+});
+
+// Resize
+window.addEventListener('resize', () => {
+  if (!isGrid) positionListItems();
+});
+
+/* ========== VIEW TOGGLE ========== */
+document.getElementById('viewToggle').addEventListener('click', () => {
+  isGrid = !isGrid;
+  listIcon.style.display = isGrid ? 'block' : 'none';
+  gridIcon.style.display = isGrid ? 'none' : 'block';
+
+  if (isGrid) {
+    gridView.style.display = '';
+    listView.style.display = 'none';
+    document.body.style.overflow = '';
+  } else {
+    gridView.style.display = 'none';
+    listView.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    renderList();
+  }
+});
+
+/* ========== MODAL ========== */
 function openModal(p) {
   document.getElementById('modalImage').src = p.image;
   document.getElementById('modalTitle').textContent = p.title;
@@ -597,28 +650,21 @@ function openModal(p) {
   const tagsEl = document.getElementById('modalTags');
   tagsEl.innerHTML = (p.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
 
-  const jsonStr = JSON.stringify(p.prompt, null, 2);
-  document.getElementById('modalJson').textContent = jsonStr;
+  document.getElementById('modalJson').textContent = JSON.stringify(p.prompt, null, 2);
 
   const sourceEl = document.getElementById('modalSource');
-  if (p.source) {
-    sourceEl.href = p.source;
-    sourceEl.style.display = 'inline-block';
-  } else {
-    sourceEl.style.display = 'none';
-  }
+  sourceEl.style.display = p.source ? 'inline-block' : 'none';
+  if (p.source) sourceEl.href = p.source;
 
   const copyBtn = document.getElementById('copyBtn');
   copyBtn.textContent = 'COPY';
   copyBtn.classList.remove('copied');
 
   modalOverlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
   modalOverlay.classList.remove('active');
-  document.body.style.overflow = '';
 }
 
 document.getElementById('modalClose').addEventListener('click', closeModal);
@@ -626,21 +672,17 @@ modalOverlay.addEventListener('click', (e) => {
   if (e.target === modalOverlay) closeModal();
 });
 
-// Copy
 document.getElementById('copyBtn').addEventListener('click', () => {
   const json = document.getElementById('modalJson').textContent;
   navigator.clipboard.writeText(json).then(() => {
     const btn = document.getElementById('copyBtn');
     btn.textContent = 'COPIED';
     btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = 'COPY';
-      btn.classList.remove('copied');
-    }, 2000);
+    setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
   });
 });
 
-// About
+/* ========== ABOUT ========== */
 document.getElementById('aboutBtn').addEventListener('click', () => {
   aboutOverlay.classList.add('active');
 });
@@ -651,7 +693,7 @@ aboutOverlay.addEventListener('click', (e) => {
   if (e.target === aboutOverlay) aboutOverlay.classList.remove('active');
 });
 
-// Keyboard
+/* ========== KEYBOARD ========== */
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeModal();
@@ -659,10 +701,11 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Home
+/* ========== HOME ========== */
 document.getElementById('homeBtn').addEventListener('click', (e) => {
   e.preventDefault();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (isGrid) window.scrollTo({ top: 0, behavior: 'smooth' });
+  else { listIndex = 0; positionListItems(); }
 });
 </script>
 </body>
