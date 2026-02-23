@@ -1,0 +1,13 @@
+[
+  {
+    "id": "001",
+    "title": "Sample Prompt",
+    "image": "images/001.jpg",
+    "model": "Midjourney",
+    "tags": ["surreal"],
+    "source": "",
+    "prompt": {
+      "description": "A sample prompt placeholder"
+    }
+  }
+]
