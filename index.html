@@ -75,16 +75,27 @@ nav > * { pointer-events: auto; }
   color: var(--text-dim);
 }
 
-.pill-btn {
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 1.5px solid #333; background: rgba(0,0,0,0.7);
+.pill-toggle {
+  display: flex; align-items: center; gap: 0;
+  border: 1.5px solid #333; border-radius: 20px;
+  background: rgba(0,0,0,0.7);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  color: var(--text); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color 0.2s;
+  padding: 3px; position: relative;
 }
-.pill-btn:hover { border-color: #666; }
-.pill-btn svg { width: 18px; height: 18px; }
+.pill-toggle-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: none; background: transparent;
+  color: var(--text-dim); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.25s, background 0.25s;
+  position: relative; z-index: 1;
+}
+.pill-toggle-btn.active {
+  color: var(--text);
+  background: rgba(255,255,255,0.12);
+}
+.pill-toggle-btn:hover:not(.active) { color: #888; }
+.pill-toggle-btn svg { width: 16px; height: 16px; }
 
 /* ========== INFINITE GRID ========== */
 #gridViewport {
@@ -309,10 +320,14 @@ nav > * { pointer-events: auto; }
 <!-- FOOTER -->
 <div class="footer-bar">
   <div class="counter" id="counter"></div>
-  <button class="pill-btn" id="viewToggle" aria-label="Toggle view">
-    <i data-lucide="rows-3" id="listIcon" style="width:18px;height:18px"></i>
-    <i data-lucide="grid-2x2" id="gridIcon" style="width:18px;height:18px;display:none"></i>
-  </button>
+  <div class="pill-toggle" id="viewToggle">
+    <button class="pill-toggle-btn active" id="gridBtn" aria-label="Grid view">
+      <i data-lucide="grid-2x2"></i>
+    </button>
+    <button class="pill-toggle-btn" id="listBtn" aria-label="List view">
+      <i data-lucide="rows-3"></i>
+    </button>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -632,13 +647,13 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('resize', () => { if (!isGrid) positionListItems(); });
 
 /* ============ VIEW TOGGLE ============ */
-const listIcon = document.getElementById('listIcon');
-const gridIcon = document.getElementById('gridIcon');
+const gridBtn = document.getElementById('gridBtn');
+const listBtn = document.getElementById('listBtn');
 
-document.getElementById('viewToggle').addEventListener('click', () => {
-  isGrid = !isGrid;
-  listIcon.style.display = isGrid ? 'block' : 'none';
-  gridIcon.style.display = isGrid ? 'none' : 'block';
+function switchView(toGrid) {
+  isGrid = toGrid;
+  gridBtn.classList.toggle('active', isGrid);
+  listBtn.classList.toggle('active', !isGrid);
 
   if (isGrid) {
     gridViewport.style.display = '';
@@ -649,7 +664,10 @@ document.getElementById('viewToggle').addEventListener('click', () => {
     listView.style.display = 'block';
     renderList();
   }
-});
+}
+
+gridBtn.addEventListener('click', () => switchView(true));
+listBtn.addEventListener('click', () => switchView(false));
 
 function updateCounter() {
   document.getElementById('counter').textContent =
