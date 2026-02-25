@@ -247,7 +247,7 @@
     "source": "https://x.com/hewarsaber/status/2023828954528776574",
     "author": "Hewar",
     "prompt": {
-      "prompt": "A hyper-realistic {{object}} rendered as a sculptural object carved entirely from solid, optical-grade crystal glass. The object preserves its true proportions and recognizable silhouette, with precise geometry and clean edge definition appropriate to its form. It is floating in space at a slight dynamic angle, not perfectly straight, allowing light interaction across multiple surfaces.\n\nA single focused white light source enters the object from one direction, refracting through the internal volume and producing layered internal reflections, chromatic aberration, and physically accurate spectral dispersion along edges, corners, and internal transitions. Light bends, splits, and bounces naturally within the material, creating complex but controlled optical behavior.\n\nInside the glass, subtle volumetric depth is visible, including faint internal reflections, refractive distortions, micro-scratches, and tiny dust particles suspended within the material. A small, intense specular highlight appears on a sharp edge or curvature where the light strikes most directly, producing a crisp optical spark.\n\nReflections are sharp and physically accurate. The glass feels heavy, dense, and premium \u2014 never plastic, never stylized, never neon. The background is a pure black void with soft falloff and no visible environment. Lighting is minimal and studio-controlled, designed to emphasize form, refraction, internal depth, and edge clarity rather than brightness.\n\nNo text, no logos, no markings.",
+      "prompt": "A hyper-realistic {{object}} rendered as a sculptural object carved entirely from solid, optical-grade crystal glass. The object preserves its true proportions and recognizable silhouette, with precise geometry and clean edge definition appropriate to its form. It is floating in space at a slight dynamic angle, not perfectly straight, allowing light interaction across multiple surfaces.\n\nA single focused white light source enters the object from one direction, refracting through the internal volume and producing layered internal reflections, chromatic aberration, and physically accurate spectral dispersion along edges, corners, and internal transitions. Light bends, splits, and bounces naturally within the material, creating complex but controlled optical behavior.\n\nInside the glass, subtle volumetric depth is visible, including faint internal reflections, refractive distortions, micro-scratches, and tiny dust particles suspended within the material. A small, intense specular highlight appears on a sharp edge or curvature where the light strikes most directly, producing a crisp optical spark.\n\nReflections are sharp and physically accurate. The glass feels heavy, dense, and premium — never plastic, never stylized, never neon. The background is a pure black void with soft falloff and no visible environment. Lighting is minimal and studio-controlled, designed to emphasize form, refraction, internal depth, and edge clarity rather than brightness.\n\nNo text, no logos, no markings.",
       "style": {
         "lighting": "Low-key studio lighting with a single directional white light source",
         "materials": "Optical-grade crystal glass with physically accurate refraction and dispersion",
@@ -413,7 +413,7 @@
         "shadow": "gentle yet defined diffuse shadows directly beneath objects for grounded realism",
         "composition": "clean centered or grid layout on seamless matte white background",
         "color_palette": {
-          "primary_tones": "pastel and candy-like colors \u2014 mint green, soft orange, butter yellow, warm gray",
+          "primary_tones": "pastel and candy-like colors — mint green, soft orange, butter yellow, warm gray",
           "accent_tones": "slightly darker stitching seams for depth contrast",
           "background": "neutral white, softly illuminated"
         },
@@ -646,5 +646,70 @@
       "pixel"
     ],
     "prompt": "{\n  \"style\": \"3D voxel icon, isometric pixel sculpture\",\n  \"subject\": \"{SUBJECT}\",\n  \"geometry\": {\n    \"construction\": \"built entirely from uniform cubic voxels\",\n    \"grid_visibility\": \"clearly visible cube grid\",\n    \"edge_style\": \"stepped, blocky, pixelated edges\",\n    \"proportions\": \"simple, icon-like, minimal detail\"\n  },\n  \"rendering\": {\n    \"lighting\": \"soft studio lighting with gentle shadows\",\n    \"material\": \"smooth matte or subtle semi-gloss plastic\",\n    \"shading\": \"clean global illumination, soft gradients\",\n    \"depth\": \"strong dimensional depth and volume\"\n  },\n  \"camera\": {\n    \"angle\": \"3/4 isometric view\",\n    \"rotation\": \"slightly tilted for dynamic presentation\",\n    \"framing\": \"centered composition\"\n  },\n  \"color\": {\n    \"palette\": \"{COLOR_STYLE}\",\n    \"saturation\": \"vibrant but clean\",\n    \"contrast\": \"crisp separation between surfaces\"\n  },\n  \"background\": {\n    \"type\": \"transparent PNG\",\n    \"shadow\": \"soft floating shadow under object\",\n    \"environment\": \"no scene, no floor, no horizon\"\n  },\n  \"aesthetic\": [\n    \"minimalist\",\n    \"modern icon design\",\n    \"toy-like\",\n    \"clean\",\n    \"precise\",\n    \"high resolution\",\n    \"product render quality\"\n  ],\n  \"quality\": {\n    \"resolution\": \"high detail\",\n    \"edges\": \"sharp and clean\",\n    \"noise\": \"none\",\n    \"style_consistency\": \"strict voxel construction\"\n  }\n}"
+  },
+  {
+    "id": "012",
+    "title": "Low-Poly Origami Sculpture",
+    "image": "images/011.png",
+    "model": "GPT-4o / Image Gen",
+    "tags": [
+      "low-poly",
+      "origami",
+      "paper",
+      "3d",
+      "sculpture",
+      "minimal"
+    ],
+    "source": "",
+    "author": "",
+    "prompt": {
+      "subject": {
+        "type": "animal",
+        "name": "panda",
+        "pose": "sitting upright",
+        "style": "low-poly origami sculpture",
+        "geometry": "faceted geometric form",
+        "expression": "cute minimal",
+        "eyes": "small round black"
+      },
+      "material": {
+        "primary_surface": "cardboard / folded paper",
+        "colors": [
+          "cream",
+          "brown"
+        ],
+        "texture": "realistic paper grain",
+        "finish": "matte"
+      },
+      "design_style": {
+        "complexity": "minimalistic",
+        "edge_style": "angular",
+        "construction": "origami folded planes",
+        "cleanliness": "ultra clean"
+      },
+      "composition": {
+        "framing": "centered",
+        "camera_view": "front view",
+        "balance": "symmetrical",
+        "ground_shadow": "subtle soft shadow"
+      },
+      "lighting": {
+        "type": "studio lighting",
+        "quality": "soft diffused",
+        "contrast": "gentle",
+        "mood": "calm premium product shot"
+      },
+      "background": {
+        "type": "gradient",
+        "color": "dark navy",
+        "style": "smooth studio backdrop"
+      },
+      "rendering": {
+        "dimension": "3D render",
+        "quality": "cinematic",
+        "resolution": "4K",
+        "sharpness": "high detail"
+      }
+    }
   }
 ]
