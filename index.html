@@ -423,28 +423,46 @@ function buildGrid() {
 }
 
 function buildTileBlockHTML() {
-  // Fill 32 slots with prompts, ensuring no two adjacent cells use the same prompt.
-  // "Adjacent" = previous slot AND the slot 8 positions back (same column, row above).
+  // Fill 32 slots ensuring maximum visual variety.
+  // Extended exclusion zone: check 2-ring neighbors in the 8-col grid.
+  // Also balance frequency so each prompt appears roughly equally.
   const n = prompts.length;
+  const cols = 8;
   const slots = [];
-  for (let i = 0; i < tilePattern.length; i++) {
-    // Collect indices that would be adjacent
-    const avoid = new Set();
-    if (i > 0) avoid.add(slots[i - 1]);           // left neighbor
-    if (i >= 8) avoid.add(slots[i - 8]);           // top neighbor (same col)
-    if (i >= 7) avoid.add(slots[i - 7]);           // top-right diagonal
-    if (i >= 9) avoid.add(slots[i - 9]);           // top-left diagonal
+  const usageCount = new Array(n).fill(0);
 
-    // Pick a random index that isn't in the avoid set
+  // Offsets for neighbors within 2 cells (row-major, 8 cols)
+  const neighborOffsets = [
+    -1, -2,                         // left 1-2
+    -cols, -cols-1, -cols+1,        // top row
+    -cols*2, -cols*2-1, -cols*2+1,  // 2 rows up
+    -cols-2, -cols+2,               // top diagonals far
+  ];
+
+  for (let i = 0; i < tilePattern.length; i++) {
+    const avoid = new Set();
+    for (const off of neighborOffsets) {
+      const ni = i + off;
+      if (ni >= 0 && ni < slots.length) avoid.add(slots[ni]);
+    }
+
+    // Find candidates not in exclusion zone
     let candidates = [];
     for (let j = 0; j < n; j++) {
       if (!avoid.has(j)) candidates.push(j);
     }
-    // Fallback: if all are avoided (tiny prompt count), allow any
     if (candidates.length === 0) {
       candidates = Array.from({ length: n }, (_, j) => j);
     }
-    slots.push(candidates[Math.floor(Math.random() * candidates.length)]);
+
+    // Prefer least-used prompts for even distribution
+    const minUsage = Math.min(...candidates.map(j => usageCount[j]));
+    const preferred = candidates.filter(j => usageCount[j] === minUsage);
+
+    const pick = preferred[Math.floor(Math.random() * preferred.length)];
+    slots.push(pick);
+    usageCount[pick]++;
+  }
   }
 
   let html = '';
