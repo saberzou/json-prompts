@@ -516,7 +516,7 @@ window.addEventListener('pointermove', (e) => {
   const dt = now - lastMoveTime;
   const dx = e.clientX - dragStartX;
   const dy = e.clientY - dragStartY;
-  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+  if (Math.abs(dx) > 8 || Math.abs(dy) > 8) dragMoved = true;
   if (dt > 0) {
     velX = (e.clientX - lastMoveX) / dt * 16; // px per frame (~16ms)
     velY = (e.clientY - lastMoveY) / dt * 16;
@@ -561,11 +561,12 @@ gridCanvas.addEventListener('click', (e) => {
   if (prompts[idx]) openModal(prompts[idx]);
 });
 
-// Mouse wheel pan
+// Mouse wheel pan — dampen for trackpad
 gridViewport.addEventListener('wheel', (e) => {
   e.preventDefault();
-  panX -= e.deltaX || 0;
-  panY -= e.deltaY || 0;
+  const damp = 0.35;
+  panX -= (e.deltaX || 0) * damp;
+  panY -= (e.deltaY || 0) * damp;
   applyPan();
 }, { passive: false });
 
