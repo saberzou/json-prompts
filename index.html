@@ -494,10 +494,13 @@ let velX = 0, velY = 0;
 let lastMoveX = 0, lastMoveY = 0, lastMoveTime = 0;
 let inertiaRAF = null;
 
+let dragTarget = null;
+
 gridViewport.addEventListener('pointerdown', (e) => {
   if (e.target.closest('button, a, .modal-overlay, .about-overlay')) return;
   isDragging = true;
   dragMoved = false;
+  dragTarget = e.target;
   velX = 0; velY = 0;
   if (inertiaRAF) { cancelAnimationFrame(inertiaRAF); inertiaRAF = null; }
   dragStartX = e.clientX;
@@ -507,6 +510,7 @@ gridViewport.addEventListener('pointerdown', (e) => {
   lastMoveTime = performance.now();
   dragPanStartX = panX;
   dragPanStartY = panY;
+  // Don't capture pointer — it breaks click target detection on items
   gridViewport.setPointerCapture(e.pointerId);
 });
 
@@ -552,14 +556,17 @@ function startInertia() {
   inertiaRAF = requestAnimationFrame(tick);
 }
 
-// Click on item (only if not dragged)
-gridCanvas.addEventListener('click', (e) => {
-  if (dragMoved) return;
-  const item = e.target.closest('.item');
+// Click on item (only if not dragged) — use saved target since pointerCapture changes e.target
+function handleGridClick() {
+  if (dragMoved || !dragTarget) { dragTarget = null; return; }
+  const item = dragTarget.closest('.item');
+  dragTarget = null;
   if (!item) return;
   const idx = parseInt(item.dataset.idx);
   if (prompts[idx]) openModal(prompts[idx]);
-});
+}
+gridCanvas.addEventListener('click', handleGridClick);
+gridViewport.addEventListener('click', handleGridClick);
 
 // Mouse wheel pan — dampen for trackpad
 gridViewport.addEventListener('wheel', (e) => {
