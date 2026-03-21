@@ -787,5 +787,62 @@
         }
       }
     }
+  },
+  {
+    "id": "014",
+    "title": "Chibi Vinyl Figurine",
+    "image": "images/chibi-vinyl-figurine.jpg",
+    "model": "GPT-4o / Image Gen",
+    "tags": [
+      "3d",
+      "chibi",
+      "vinyl",
+      "figurine",
+      "kawaii",
+      "toy",
+      "collectible",
+      "character"
+    ],
+    "source": "https://x.com/egeberkina/status/2035288691279556872",
+    "author": "@egeberkina",
+    "prompt": {
+      "prompt": "Transform the uploaded image into a cute 3D chibi vinyl figurine style character while preserving the original subject, identity, pose, clothing cues, and key visual traits. Convert the subject into an adorable stylized collectible toy aesthetic with an oversized head, very small body, large glossy anime-inspired eyes, tiny nose, soft rounded cheeks, simplified facial features, smooth clean skin, and highly polished soft plastic / vinyl material. Hair should look sculpted, smooth, rounded, and slightly chunky like a premium toy figure. Keep the expression sweet, charming, and innocent. Use soft studio lighting, subtle ambient occlusion, gentle shadows, clean reflections, high-end toy photography look, ultra clean render, centered composition, minimal scene, pure white seamless background. Make it look like a premium kawaii 3D figurine render, very cute, highly polished, soft forms, smooth surfaces, collectible designer toy aesthetic.",
+      "negative_prompt": "realistic human skin, realistic proportions, detailed pores, gritty texture, rough material, photorealism, complex background, messy scene, text, watermark, extra fingers, extra limbs, deformed hands, broken anatomy, low quality, blur, grain, horror, creepy expression, dark lighting, dramatic background, sharp wrinkles, old face, realistic teeth, oversized muscles, metallic robot look",
+      "style": {
+        "theme": "3D chibi vinyl figurine",
+        "background": "pure white",
+        "render_look": "premium toy photography",
+        "material": "smooth glossy soft vinyl/plastic",
+        "mood": "cute, clean, charming"
+      },
+      "composition": {
+        "framing": "centered subject",
+        "camera": "slight portrait angle",
+        "background": "seamless white studio backdrop",
+        "focus": "full character transformation"
+      },
+      "character_design": {
+        "head_ratio": "oversized",
+        "body_ratio": "small simplified body",
+        "eyes": "large glossy anime-style eyes",
+        "face": "rounded, soft, minimal features",
+        "hair": "smooth sculpted toy-like hair strands",
+        "expression": "sweet and cute"
+      },
+      "lighting": {
+        "type": "soft studio lighting",
+        "shadows": "gentle soft shadows",
+        "reflections": "subtle clean reflections",
+        "contrast": "low to medium, soft"
+      },
+      "instructions": [
+        "Preserve the uploaded subject's recognizable identity",
+        "Keep the outfit recognizable but simplified into toy form",
+        "Do not change the main pose unless needed for toy-style readability",
+        "Make the result look like a collectible 3D figurine",
+        "Keep background fully white and uncluttered",
+        "Prioritize cuteness, polish, and clean toy-like rendering"
+      ]
+    }
   }
 ]
